@@ -11,9 +11,8 @@
    :caption: Contents:
 
    TF卡挂载
-   Viobot串口通信
-   Viobot的I2C使用
-   Viobot的CAN使用
-    
+   串口通信
+   I2C通信
+   CAN通信
    网卡挂载与wifi连接
 

@@ -1,10 +1,10 @@
-# Viobot ROS多主机配置
+# ROS多主机配置
 
-主要是针对ROS版本下的，因为ROS本身master节点只能够有一个，如果把个人电脑设置为主机，把viobot设置为从机的话，设备本身的程序启动会一直寻找主机，导致很多功能不能正常使用。只有在个人电脑正常运行，能够设备稳定通信，而且开启了ROS master的情况下才能使用，限制比较大，现介绍一种方法，能够让你的个人电脑配置了从机之后，在不连接viobot的情况下也能够正常使用ROS的功能。
+主要是针对ROS版本下的，因为ROS本身master节点只能够有一个，如果把个人电脑设置为主机，把baton设置为从机的话，设备本身的程序启动会一直寻找主机，导致很多功能不能正常使用。只有在个人电脑正常运行，能够设备稳定通信，而且开启了ROS master的情况下才能使用，限制比较大，现介绍一种方法，能够让你的个人电脑配置了从机之后，在不连接baton的情况下也能够正常使用ROS的功能。
 
 这就是`multmaster fkie`，截图GPT的回答：
 
-![](image/image_1ih62O9Qig.png)
+![](image/image_F1ts-ZxAvF.png)
 
 以下教程以ubuntu20.04 + ROS Noetic为例。
 
@@ -31,9 +31,9 @@ catkin build
 
 ```
 
-#### (2)编译Viobot的环境
+#### (2)编译Baton的环境
 
-此步骤需要确保Viobot的网络配置在一个能够联网的IP段
+此步骤需要确保Baton的网络配置在一个能够联网的IP段
 
 ```bash
 mkdir -p mult_master/src
@@ -47,6 +47,7 @@ pip3 install grpcio
 pip install grpcio-tools
 cd ..
 catkin build
+
 ```
 
 ## 2.配置网络环境
@@ -55,21 +56,23 @@ catkin build
 
 ```bash
 sudo gedit /etc/hosts
+
 ```
 
-添加Viobot的IP和hostname
+添加Baton的IP和hostname
 
-![](image/image_f0b-xqqvYk.png)
+![](image/image_k5u_UgF95b.png)
 
-#### （2）Viobot添加host
+#### （2）Baton添加host
 
 ```bash
 sudo vim /etc/hosts
+
 ```
 
 添加虚拟机的IP和hostname
 
-![](image/image_Gr8RRiopv4.png)
+![](image/image_Nhee53pS6v.png)
 
 ## 3.增加网络配置
 
@@ -91,17 +94,17 @@ ping 224.0.0.1
 
 虚拟机：
 
-![](image/image_meE7fcVnG8.png)
+![](image/image_HzJ_4qJNfO.png)
 
-Viobot：
+Baton：
 
-![](image/image_OTMCjm2vFb.png)
+![](image/image_wCqMci-IRl.png)
 
 如果都能够看到彼此的IP即配置完成
 
 ## 4.测试multmaster多机通信
 
-由于Viobot设备自启动有一个master节点和传感器的数据读取，所以不需要另外再启动其他节点
+由于Baton设备自启动有一个master节点和传感器的数据读取，所以不需要另外再启动其他节点
 
 虚拟机操作：
 
@@ -129,7 +132,7 @@ rosrun fkie_master_sync master_sync
 
 ```
 
-Viobot操作：
+Baton操作：
 
 ```bash
 cd mult_master

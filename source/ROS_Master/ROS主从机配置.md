@@ -1,12 +1,12 @@
-# Viobot ROS主从机配置
+# Baton作为主机，配置从机
 
 以虚拟机ubuntu20.04为例。
 
 我的设备ip为10.21.0.225，ubuntu系统的ip为10.21.0.242，先确认可以ping通设备。
 
-![](image/image_iSRm0Snfwx.png)
+![](image/image_WNMgB0vEbb.png)
 
-![](image/image_FD3fl-_W6o.png)
+![](image/image_9LjbUnmaTe.png)
 
 ### 1.从机配置
 
@@ -19,7 +19,7 @@ sudo gedit /etc/hosts
 
 ```
 
-![](image/image_SpMYiNuqyv.png)
+![](image/image_QcmZDl89VC.png)
 
 然后终端再输入命令，修改文件并保存退出。
 
@@ -30,7 +30,7 @@ export ROS_MASTER_URI=http://10.21.0.225:11311
 
 ```
 
-![](image/image_7yYzsxp6Gj.png)
+![](image/image_3RZ7I-YxID.png)
 
 新开终端，输入命令。（一定要新开终端！！！！！！！！！）
 
@@ -38,11 +38,9 @@ export ROS_MASTER_URI=http://10.21.0.225:11311
 rostopic list
 #配置好了则会列出主机的话题列表
 #还可以直接输入
-rostopic echo /viobot/imu
+rostopic echo /baton/imu
 #终端会打印imu的数据
 ```
-
-![image-20240408100846378](image/image-20240408100846378.png)
 
 到这里从机就配置完成了。
 
@@ -58,7 +56,7 @@ sudo vim /etc/hosts
 从机ip 从机hostname
 ```
 
-![](image/image_XfY8s40Ekj.png)
+![](image/image_9uSXgJxYvd.png)
 
 从机ip我们上面已经给出了，就是`10.21.0.242` ，然后我们在虚拟机中打开终端，获取从机hostname：
 
@@ -67,30 +65,9 @@ hostname #我的虚拟机名字就是tl，所以上面文档的新行输入就�
 
 ```
 
-![](image/image_rbk_N0xrab.png)
+![](image/image_Qe--u7QdP_.png)
 
 vim保存退出，双击键盘Esc键，然后打出冒号+wq回车即可。
-
-测试从机控制主机：
-
-这一步需要先将资料包的ROS\_demo里面的msg拉到从机的工作空间，编译
-
-![](image/image_kxxXMdsyUC.png)
-
-```bash
-cd catkin_ws #catkin_ws对应你自己的工作空间
-catkin_make -DCATKIN_WHITELIST_PACKAGES="sensor_pub;loop_action;system_ctrl"
-source ./devel/setup.bash
-rqt #从机开启rqt，调出Message Publisher
-```
-
-![](image/image_2AHFcQN2My.png)
-
-选择Topic ：`/viobot/system_ctrl `      Type: `system_ctrl/viobot_ctrl` 点击加号添加。
-
-话题勾选两个勾，rqt就会按照1Hz的频率发布开启补光灯的话题，发几次就去掉上面/system\_ctrl前面的勾就行。如果看到补光灯亮起来了，就表示从机控制主机配置完成了。
-
-![](image/image_XJV-uS336c.png)
 
 ### 3.其他问题
 
