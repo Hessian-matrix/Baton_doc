@@ -6,9 +6,9 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'viobot_doc'
-copyright = '2024, hession'
-author = 'hession'
+project = 'baton_doc'
+copyright = '2024, hessian'
+author = 'hessian'
 release = '0.0'
 
 # -- General configuration ---------------------------------------------------
