@@ -10,8 +10,8 @@ Welcome to viobot_doc's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   Viobot简介
-   Viobot开机指南
+   Baton简介
+   开机指南
    
    基本功能介绍及使用/index
    硬件接口使用/index
