@@ -1,12 +1,12 @@
 # CAN通信
 
-下面我们来介绍Baton的CAN口使用
+下面我们来介绍Viobot2的CAN口使用
 
 ![](image/image_0al-9L7CFb.png)
 
 ### 1.接口定义
 
-Baton面有一个2\*4pin的接口母座，接头我们发货的时候会放在盒子里面的。
+Viobot2面有一个2\*4pin的接口母座，接头我们发货的时候会放在盒子里面的。
 
 我们可以看到第一排从左到右引脚分别是GND SCL SDA GND
 
@@ -16,7 +16,7 @@ Baton面有一个2\*4pin的接口母座，接头我们发货的时候会放在�
 
 ### 2.硬件连接
 
-此处使用Baton与windows电脑的CAN转USB模块通信作为例子。
+此处使用Viobot2与windows电脑的CAN转USB模块通信作为例子。
 
 我们可以先去某宝上买一个带上位机的CAN转USB模块，将Viobot的CANL和CANH接到模块的CANL和CANH上面，然后将模块插到电脑。
 

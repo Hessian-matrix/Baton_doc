@@ -1,6 +1,6 @@
 # ROS多主机配置
 
-主要是针对ROS版本下的，因为ROS本身master节点只能够有一个，如果把个人电脑设置为主机，把baton设置为从机的话，设备本身的程序启动会一直寻找主机，导致很多功能不能正常使用。只有在个人电脑正常运行，能够设备稳定通信，而且开启了ROS master的情况下才能使用，限制比较大，现介绍一种方法，能够让你的个人电脑配置了从机之后，在不连接baton的情况下也能够正常使用ROS的功能。
+主要是针对ROS版本下的，因为ROS本身master节点只能够有一个，如果把个人电脑设置为主机，把Viobot2设置为从机的话，设备本身的程序启动会一直寻找主机，导致很多功能不能正常使用。只有在个人电脑正常运行，能够设备稳定通信，而且开启了ROS master的情况下才能使用，限制比较大，现介绍一种方法，能够让你的个人电脑配置了从机之后，在不连接Viobot2的情况下也能够正常使用ROS的功能。
 
 这就是`multmaster fkie`，截图GPT的回答：
 
@@ -31,9 +31,9 @@ catkin build
 
 ```
 
-#### (2)编译Baton的环境
+#### (2)编译Viobot2的环境
 
-此步骤需要确保Baton的网络配置在一个能够联网的IP段
+此步骤需要确保Viobot2的网络配置在一个能够联网的IP段
 
 ```bash
 mkdir -p mult_master/src
@@ -59,11 +59,11 @@ sudo gedit /etc/hosts
 
 ```
 
-添加Baton的IP和hostname
+添加Viobot2的IP和hostname
 
 ![](image/image_k5u_UgF95b.png)
 
-#### （2）Baton添加host
+#### （2）Viobot2添加host
 
 ```bash
 sudo vim /etc/hosts
@@ -96,7 +96,7 @@ ping 224.0.0.1
 
 ![](image/image_HzJ_4qJNfO.png)
 
-Baton：
+Viobot2：
 
 ![](image/image_wCqMci-IRl.png)
 
@@ -104,7 +104,7 @@ Baton：
 
 ## 4.测试multmaster多机通信
 
-由于Baton设备自启动有一个master节点和传感器的数据读取，所以不需要另外再启动其他节点
+由于Viobot2设备自启动有一个master节点和传感器的数据读取，所以不需要另外再启动其他节点
 
 虚拟机操作：
 
@@ -132,7 +132,7 @@ rosrun fkie_master_sync master_sync
 
 ```
 
-Baton操作：
+Viobot2操作：
 
 ```bash
 cd mult_master
