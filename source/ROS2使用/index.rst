@@ -3,22 +3,17 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Baton_doc's documentation!
+ROS2 USE
 ======================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   产品简介
-   开机指南
-   
-   基本功能介绍及使用
-   硬件接口说明
-   USB网卡设置
-   ROS2使用/index  
-   串口通信
-   版本更新 
+   ROS2多机通信
+   话题列表
+   算法控制
+   数据接收
    
 
 Indices and tables
