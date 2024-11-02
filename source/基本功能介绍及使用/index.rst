@@ -10,7 +10,7 @@
    :maxdepth: 2
    :caption: Contents:
 
-   基本功能使用和介绍   
+   基本功能  
    数据说明
    算法控制
    回环使用

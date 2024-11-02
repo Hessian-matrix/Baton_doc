@@ -2,7 +2,7 @@
 
 下面我们来介绍Viobot2的CAN口使用
 
-![](image/image_0al-9L7CFb.png)
+![](image/image_-2f23VsaRD.png)
 
 ### 1.接口定义
 
@@ -18,9 +18,9 @@ Viobot2面有一个2\*4pin的接口母座，接头我们发货的时候会放在
 
 此处使用Viobot2与windows电脑的CAN转USB模块通信作为例子。
 
-我们可以先去某宝上买一个带上位机的CAN转USB模块，将Viobot的CANL和CANH接到模块的CANL和CANH上面，然后将模块插到电脑。
+我们可以先去某宝上买一个带上位机的CAN转USB模块，将Viobot2的CANL和CANH接到模块的CANL和CANH上面，然后将模块插到电脑。
 
-![](image/image_KdIFEvIEnk.png)
+![](image/image_Ma6ycB9AMp.png)
 
 ### 3.命令行测试
 
@@ -36,7 +36,7 @@ candump can0
 
 ```
 
-![](image/image_o2-XsJkglK.png)
+![](image/image_mu7BTeNFY0.png)
 
 ### 4.代码
 
@@ -241,4 +241,4 @@ g++ can_dmo.cpp -lpthread
 
 每秒向can总线发送一帧数据，接收到can总线的数据会打印到终端
 
-![](image/image_1fO5I-MfqD.png)
+![](image/image_cl8p3A4a5Q.png)

@@ -2,7 +2,7 @@
 
 下面我们来介绍Viobot2的I2C接口的使用
 
-![](image/image_Q0c-H_pWnD.png)
+![](image/image_3vsyHcBUGB.png)
 
 ### 1.接口定义
 
@@ -18,7 +18,7 @@ Viobot2面有一个2\*4pin的接口母座，接头我们发货的时候会放在
 
 我们以MPU9250的模块来做例子，由此也可以推到其他的iic设备。
 
-给模块供电后直接把Viobot2和MPU9250的SCL、SDA分别对接起来。
+给模块供电后直接把Baton和MPU9250的SCL、SDA分别对接起来。
 
 ### 3.程序编译测试
 
@@ -334,4 +334,4 @@ int main(int argc,char **argv){
 
 这个代码效果就是不断的读取mpu9250的数据并打印到终端
 
-![](image/image_FjhvqQtDNg.png)
+![](image/image_iCzrE6XEjB.png)
