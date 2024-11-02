@@ -3,14 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Baton_doc's documentation!
+Welcome to Viobot2_doc's documentation!
 ======================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   Baton简介
+   Viobot2简介
    开机指南
    
    基本功能介绍及使用/index
