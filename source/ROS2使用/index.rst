@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-ROS2 USE
+ROS2使用
 ======================================
 
 .. toctree::
