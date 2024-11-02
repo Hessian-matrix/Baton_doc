@@ -10,7 +10,7 @@
    :maxdepth: 2
    :caption: Contents:
 
-   网卡挂载与wifi连接   
+   网卡挂载与WiFi连接  
    TF卡挂载
    串口通信
    I2C通信
