@@ -19,7 +19,7 @@ Welcome to Baton_mini_doc's documentation!
    串口通信
    版本更新 
    
-Indices and tables
+.. Indices and tables
 ==================
 
 * :ref:`genindex`
