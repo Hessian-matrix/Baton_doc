@@ -12,7 +12,7 @@ Welcome to Baton_mini_doc's documentation!
 
    产品简介
    开机指南
-   基本功能介绍及使用
+   基本功能使用及介绍
    硬件接口说明
    USB网卡设置
    ROS2使用/index  
