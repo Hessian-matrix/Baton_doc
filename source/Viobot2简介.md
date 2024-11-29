@@ -14,10 +14,14 @@ Viobot2自带系统默认为Ubuntu20.04 + ROS noetic （可选配 Ubuntu22.04 +R
 
 软件包和demo下载地址：Hessian-matrix ([github.com](http://github.com "github.com")) 或者Hessian\_matrix (hessian\_matrix) - [Gitee.com](http://Gitee.com "Gitee.com")
 
+规格参数：
+
+![](image/image_hLNmmFz09q.png)
+
 外观总览：
 
-![](image/9d07d9758904deba7fc02b79ae4f0ae_DPyl7aU_57.png)
+![](image/9d07d9758904deba7fc02b79ae4f0ae_7AQi4eGBBr.png)
 
 产品尺寸：
 
-![](image/image_xwYngYEy_T.png)
+![](image/image_-xnOwN_BYF.png)
