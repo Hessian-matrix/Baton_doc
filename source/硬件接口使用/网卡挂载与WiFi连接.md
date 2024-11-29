@@ -55,7 +55,7 @@ nmcli device wifi list #会出来可见的WIFI列表
 #### 3）连接无线热点
 
 ```bash
- sudo nmcli device wifi connect "PRROBOT" password "pr16171618" #PRROBOT对应你的SSID,12345678对应你的密码
+ sudo nmcli device wifi connect "PRROBOT" password "12345678" #PRROBOT对应你的SSID,12345678对应你的密码
 ```
 
 #### 4）查看连接状态
