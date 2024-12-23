@@ -158,6 +158,30 @@ Type:`nav_msgs/msg/Path`
 
 算法正常启动后，通过stereo3运行过程中的历史位姿连成的轨迹。
 
+#### （6）回环位姿
+
+话题名：`/baton_mini/loop/odometry`
+
+Type:`nav_msgs/msg/Odometry`
+
+算法正常启动后，通过回环修正后的位姿，如果没有触发过回环，它的数据应该是与`/baton_mini/stereo3/odometry`一致的。
+
+#### （7）回环点云
+
+话题名：`/baton_mini/loop/pointcloud`
+
+Type:`sensor_msgs/msg/PointCloud2`
+
+算法正常启动后，通过修正过后的点云。
+
+#### （8）回环轨迹
+
+话题名：`/baton_mini/loop/path_odom`
+
+Type:`nav_msgs/msg/Path`
+
+算法正常启动后，通过修正过后的轨迹。
+
 ### 4.控制话题
 
 #### （1）stereo3控制
