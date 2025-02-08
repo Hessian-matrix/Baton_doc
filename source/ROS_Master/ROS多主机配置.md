@@ -43,8 +43,8 @@ git clone https://github.com/fkie/multimaster_fkie.git multimaster
 sudo apt update
 sudo apt install python3-pip
 pip3 install --upgrade setuptools
-pip3 install grpcio
-pip3 install grpcio-tools
+pip3 install grpcio  --only-binary :all:
+pip3 install grpcio-tools  --only-binary :all:
 cd ..
 catkin build
 
