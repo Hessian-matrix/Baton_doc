@@ -44,7 +44,7 @@ sudo apt update
 sudo apt install python3-pip
 pip3 install --upgrade setuptools
 pip3 install grpcio
-pip install grpcio-tools
+pip3 install grpcio-tools
 cd ..
 catkin build
 
