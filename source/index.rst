@@ -18,6 +18,7 @@ Welcome to Viobot2_doc's documentation!
    ROS_Master/index    
    SDK测试例程/index
    application/index  
+   模块接入/index
    
 
 Indices and tables
