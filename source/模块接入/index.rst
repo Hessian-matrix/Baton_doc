@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Viobot2模块接入
+模块接入
 ======================================
 
 .. toctree::
