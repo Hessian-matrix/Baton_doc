@@ -13,15 +13,13 @@ Viobot2不配备RTK模块，需要用到的用户可以自行去选购RTK模块�
 其中依赖ceres\_solver库，需要自己下载一下，可以使用我们gitee上面打包好的压缩包，直接编译安装。
 
 ```bash 
-mkdir ceres
 git clone https://gitee.com/hessian_matrix/ceres_slver-2.1.0.git
 cd ceres_slver-2.1.0
 unzip ceres-solver-2.1.0.zip
-cd ceres_solver-2.1.0
+cd ceres-solver-2.1.0
 mkdir build && cd build
 cmake ..
 sudo make install -j4
-
 
 ```
 
