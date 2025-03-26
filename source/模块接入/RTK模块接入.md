@@ -16,11 +16,10 @@ Viobot2不配备RTK模块，需要用到的用户可以自行去选购RTK模块�
 git clone https://gitee.com/hessian_matrix/ceres_slver-2.1.0.git
 cd ceres_slver-2.1.0
 unzip ceres-solver-2.1.0.zip
-cd ceres-solver-2.1.0
+cd ceres_solver-2.1.0
 mkdir build && cd build
 cmake ..
 sudo make install -j4
-
 ```
 
 
@@ -114,17 +113,18 @@ RTK驱动会把RTK的数据发送到Viobot2的程序里去解析出来，rostopi
 roslaunch hm_rtk calib_rtk_slam.launch
 ```
 
-
 确认stereo3正常启动，标定程序正常启动后，移动Viobot2和RTK天线的组合体，随机多方向快速运动，避免静止或直线运动，推荐绕8运动，算法会截取最新的10s数据进行标定。标定完成的结果会输出在终端上。
+
+![image-20250326112910661](image/image-20250326112910661.png)
 
 ## 四.RTK融合
 
 把标定结果重新写到HM\_RTK.launch。
 
 ```xml 
-<arg name="ex_rtk_slam_x" default="-0.002"/>  
+<arg name="ex_rtk_slam_x" default="-0.026357"/>  
 <arg name="ex_rtk_slam_y" default="-0.05"/>
-<arg name="ex_rtk_slam_z" default="-0.24"/>
+<arg name="ex_rtk_slam_z" default="-0.283098"/>
 ```
 
 
