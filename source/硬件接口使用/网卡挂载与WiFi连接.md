@@ -8,20 +8,6 @@ Viobot2设备本身不具备无线功能，我们其实更推荐使用有线连�
 
 ### 1.把驱动文件放到设备里面（正常设备里面已有驱动，不需要自己手动放进去）
 
-![](image/image_SFrYNavpU3.png)
-
-打开了一个网络文件夹，用户：root 密码：PRR
-
-![](image/image_Pc2YZ945oH.png)
-
-查看samba文件夹里面是否有module文件夹，如果没有则新建,(一般已放有驱动在里面)。
-
-![](image/image_v4EUnk0wHd.png)
-
-把8188\_wifi.ko文件拉到module文件夹下
-
-![](image/image_sVaRJzgUus.png)
-
 ### 2.网卡挂载
 
 挂载网卡：
