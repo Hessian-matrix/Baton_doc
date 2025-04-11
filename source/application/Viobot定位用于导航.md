@@ -1,5 +1,7 @@
 # Viobot定位用于导航
 
+例程代码地址：[Hessian-matrix/nav_demo: viobot use for navigation](https://github.com/Hessian-matrix/nav_demo)
+
 注：此教程以轮式机器人作为一个样例，具体的应用还需要用户自己去做更深入的开发。
 
 ![](image/image_hjTxh-UknT.png)
@@ -218,5 +220,3 @@ void VioOdomNodelet::loop_pointclound_callback(const sensor_msgs::PointCloud2Con
 障碍物层输入是/scan ，不使用pointcloud是因为move\_base底层代码逻辑，避障是使用世界系的点云的，其实避障使用body系点云应该是更合理的，所以我们把一定高度范围的pointcloud转成了/scan；其次是obstacle\_range和raytrace\_range两个参数，它会跟踪raytrace\_range范围内的障碍物，但是只有在obstacle\_range范围内的障碍物点才会被加到代价地图，所以我们前面在转/scan的出话题的时候加了那个1.5m就是为了把大部分点定到obstacle\_range和raytrace\_range中间，使得障碍物能够快速被刷新。
 
 ![](image/image_4SSY1Z656X.png)
-
-range\_max
