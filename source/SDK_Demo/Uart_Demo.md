@@ -6,6 +6,8 @@ UART的接口为GH1.0的5pin，从螺丝孔那里开始从左到右分别是GND�
 
 如果是单纯串口通信的话就是接GND、TX、RX即可，需要注意的是串口电平是3.3V的如果接了5V会把串口烧掉。
 
+Demo代码地址：[Hessian-matrix/mini_serial_demo: serial demo for baton_mini](https://github.com/Hessian-matrix/mini_serial_demo)
+
 ## 一.数据协议
 
 串口波特率：115200
@@ -28,7 +30,7 @@ UART的接口为GH1.0的5pin，从螺丝孔那里开始从左到右分别是GND�
 **校验和：** 计算校验和时从帧头开始计算，一直累加到保留位的最后一位为止，一共要计算29bit
 
 ```c++
-char check = 0;
+unsigned char check = 0;
 for(int i = 2;i < 31;i++){
     check += receiveBuffer[i];
 }
