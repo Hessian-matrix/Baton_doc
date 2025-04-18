@@ -78,7 +78,7 @@ rostopic echo /rtk_nmea
 
 ### 1.确认设备当前软件版本
 
-RTK功能需要上位机更新到20250314版本，同步更新设备软件版本至20250318。
+RTK功能需要上位机更新到20250314版本，同步更新设备`software版本`至20250318。设备使用前最好先到官网同步最新的固件，新版本会修复已知问题。官网地址：https://www.hessian-matrix.com
 
 ![](image/image__SYZULjcKW.png)
 
