@@ -2,7 +2,7 @@
 
 mini新版本支持使用TCP获取图像以及IMU数据，使用接口控制相机算法启停和接收算法位姿结果。
 
-需要将mini设备的固件版本同步更新至20250317，如果版本早于0317则需要去[官网](https://www.hessian-matrix.com/%e4%b8%8b%e8%bd%bd%e4%b8%ad%e5%bf%83/ "官网")下载最新的固件并按照[版本更新](https://baton-doc.readthedocs.io/en/baton_mini/%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0.html "版本更新")的步骤更新固件。最好是先去官网把最新的客户端和更新包都下下来，更新一遍。
+需要将mini设备的固件版本同步更新至20250317，如果版本早于0317则需要去[官网](https://www.hessian-matrix.com/%e4%b8%8b%e8%bd%bd%e4%b8%ad%e5%bf%83/ "官网")下载最新的固件并按照[版本更新](https://baton-doc.readthedocs.io/en/baton_mini/%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0.html "版本更新")的步骤更新固件。
 
 ![](image/image_bKghQNK2PE.png)
 
