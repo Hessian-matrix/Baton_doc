@@ -11,6 +11,6 @@ SDK_Demo
    :caption: Contents:
 
    SDK数据定义
-   HTTP_Demo
-   SDK获取图像
+   Uart_Demo
+   USB_Demo
 

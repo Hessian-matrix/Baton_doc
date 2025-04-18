@@ -16,7 +16,7 @@ Welcome to Baton_mini_doc's documentation!
    硬件接口说明
    USB网卡设置
    ROS2使用/index  
-   串口通信
+   SDK_Demo/index
    版本更新 
    
    
