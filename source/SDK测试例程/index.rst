@@ -12,4 +12,5 @@ SDK_Demo
 
    SDK数据定义
    HTTP_Demo
+   SDK获取图像
 
