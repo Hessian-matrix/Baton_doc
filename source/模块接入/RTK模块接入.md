@@ -4,7 +4,7 @@ Viobot2默认标配GNSS模块， 算法默认为GVIO，在没有接入GNSS数据
 
 ## 一.模块选型
 
-Viobot2不配备RTK模块，需要用到的用户可以自行去选购RTK模块。RTK要求：能输出10Hz+ 的NMEA（GGA）固定解结果。如有额外的时间同步需求，需要支持PPS（1Hz）信号输出。
+Viobot2不配备RTK模块，需要用到的用户可以自行去选购RTK模块。RTK要求：能输出10Hz+ 的NMEA（GGA）固定解结果。
 
 ## 二.模块驱动
 
@@ -51,7 +51,7 @@ RTK模块通过串口连接到Viobot2，如果是接的是USB转串口，需要�
 
 ![](image/image__KMHhKkvat.png)
 
-关于硬件PPS：我们用户版本都是带GNSS板的，上面已经有硬件PPS天线接收了卫星时间，就已经完成了时间同步了。
+关于硬件PPS：我们用户版本都是带GNSS板的，上面天线接收了卫星时间，可以进行PPS时间同步。
 
 ### 2.测试驱动
 
@@ -105,17 +105,35 @@ RTK驱动会把RTK的数据发送到Viobot2的程序里去解析出来，rostopi
 
 ![](image/image_tJUbEI3He7.png)
 
-### 4.标定RTK与左目外参
+### 4.确认RTK当前是固定解
 
-上面几步确认数据正常后，启动stereo3算法，并且开启RTK驱动里面的标定程序
+```bash
+rostopic echo /baton/rtk
+```
+
+如果打印出来的status = 2,RTK当前有固定解。
+
+### 5.标定RTK与左目外参
+
+上面几步确认数据正常后，打开hm_rtk.launch,设置好Y轴的初始设定值
+
+![rtk_cali_Y](image/rtk_cali_Y.png)
+
+重新开RTK驱动
+
+```
+roslaunch hm_rtk hm_rtk.launch
+```
+
+启动stereo3算法，并且开启RTK驱动里面的标定程序
 
 ```bash 
 roslaunch hm_rtk calib_rtk_slam.launch
 ```
 
-确认stereo3正常启动，标定程序正常启动后，移动Viobot2和RTK天线的组合体，随机多方向快速运动，避免静止或直线运动，推荐绕8运动，算法会截取最新的10s数据进行标定。标定完成的结果会输出在终端上。
+确认stereo3正常启动，标定程序正常启动后，移动Viobot2和RTK天线的组合体，随机多方向快速运动，避免静止或直线运动，推荐绕8运动，算法会截取最新的10s数据进行标定。标定完成后，`ctrl+C`结束程序，标定的结果会输出在终端上。
 
-![image-20250326112910661](image/image-20250326112910661.png)
+![rtk_result](image/rtk_result.png)
 
 ## 四.RTK融合
 
