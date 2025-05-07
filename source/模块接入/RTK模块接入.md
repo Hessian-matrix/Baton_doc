@@ -1,11 +1,22 @@
 # RTK模块接入
 
 Viobot2默认标配GNSS模块， 算法默认为GVIO，在没有接入GNSS数据时会退化为VIO模式。支持外部接入RTK模块，RTK数据接入时，GNSS数据会自动摒弃掉，算法融合RTK数据输出更精准位置结果。
+viobot2使用RTK模块的大致步骤如下：
 
-## 一.模块选型
+0. [硬件准备](#一硬件准备)
+1.  [预先编译安装依赖](#二模块驱动)
+2. 编译RTK驱动
+3. [串口连接RTK模块](#1硬件连接)
+4. [RTK外参标定](#5标定rtk与左目外参)
+5. [开启RTK融合算法](#四rtk融合)
+
+## 一.硬件准备
 
 Viobot2不配备RTK模块，需要用到的用户可以自行去选购RTK模块。RTK要求：能输出10Hz+ 的NMEA（GGA）固定解结果。
 
+或者使用外部的GGA字符串通过ros话题`/rtk_nmea`发布给viobot2订阅使用（前提：viobot2配置RTK模式）。
+所以数据流的简图如下：
+![](./image/image_rtk_arrow_pic.png)
 ## 二.模块驱动
 
 黑森开源了一个RTK驱动仓库，可以直接使用：[Hessian-matrix/HM\_RTK\_driver](https://github.com/Hessian-matrix/HM_RTK_driver "Hessian-matrix/HM_RTK_driver")
@@ -151,8 +162,8 @@ roslaunch hm_rtk calib_rtk_slam.launch
 算法接收到RTK数据解析，然后可以给出以下新的RTK相关话题数据。
 
 ```bash 
-/baton/stereo3/fusion_odom #融合后的odometry，在SLAM局部坐标系下
-/baton/stereo3/fusion_path #融合后的历史轨迹，在SLAM局部坐标系下
-/baton/stereo3/rtk_path  #RTK历史轨迹，在SLAM局部坐标系下
- 
+/baton/stereo3/fusion_odom  #融合后的odometry，在SLAM局部坐标系下
+/baton/stereo3/fusion_path  #融合后的历史轨迹，在SLAM局部坐标系下
+/baton/stereo3/rtk_path     #RTK历史轨迹，在SLAM局部坐标系下
+/baton/stereo3/lla_odom     #融合后的odometry，XYZ是经纬高（单位:度、米），朝向是在东北天坐标系下
 ```
