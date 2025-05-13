@@ -1,12 +1,12 @@
-# SFM使用文档
+# Viobot建图
 
 >  此文档用于演示如何用viobt2实现sfm重建功能,暂不涉及重定位的功能。
 
-# 前置准备工作：
+## 前置准备工作：
 
 建议使用前先在官网下载最新的viobot2固件、viobot-ui上位机，避免有些功能无法使用，附上官网更新固件的下载页面[黑森矩阵-下载中心 ](https://www.hessian-matrix.com/%e4%b8%8b%e8%bd%bd%e4%b8%ad%e5%bf%83/)
 
-# sfm重建、sfm重定位的粗略步骤：
+## sfm重建、sfm重定位的粗略步骤：
 
 1. 通过viobot上位机配置viobot；
 
@@ -18,9 +18,9 @@
 
 5. 查看结果；
 
-# 详细的步骤
+## 详细的步骤
 
-## viobot设置与采集数据
+### viobot设置与采集数据
 
 viobot-ui连接viobot2，点击设置，找到loop一栏：
 - 勾选“开启回环/重定位”，重定位文件夹可以保持默认路径；
@@ -37,7 +37,7 @@ viobot-ui连接viobot2，点击设置，找到loop一栏：
 ![](image/image-watch_pic.png)
 
 
-## 离线建图
+### 离线建图
 
 点击开始建图之后出现建图的进度条，整个建图的用时视建图的环境大小而增大，进图条结束之后可以在设置的重建输出路径下找到重建的结果了：
 ![](image/image_mapping.png)
@@ -58,7 +58,7 @@ root@PR-VIO:/home/user/HM_SFM# tree
 ```
 至此，使用viobot建图的步骤都已完成，建图的结果可以借助colmap工具来查看。
 
-## 可视化结果(可选)
+### 可视化结果(可选)
 
   如果想要可视化建图出来的结果需要借助到Windows下的colmap软件（[点击下载colmap x64](https://github.com/colmap/colmap/releases/download/3.11.1/colmap-x64-windows-nocuda.zip)），这里用室外的一个重建完的地图做可视化的演示，效果如下：
 ![](image/image_sfm_result.png)
