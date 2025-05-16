@@ -19,6 +19,7 @@ Welcome to Viobot2_doc's documentation!
    SDK测试例程/index
    application/index  
    模块接入/index
+   相关资料下载/index
    
 
 Indices and tables

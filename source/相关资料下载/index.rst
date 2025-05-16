@@ -3,14 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-HM_INSIDE应用
+资料下载
 ======================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   HM导航规划
-   HM建图与重定位
-   HM双目深度
-   
+   代码仓库和链接汇总

@@ -1,5 +1,28 @@
-# Viobot定位用于导航
+# HM导航规划
+## HM Planner
+### 全覆盖路径规划
+Viobot2搭载了全覆盖的弓形路径规划算法，基于纯视觉里程计和重定位实现，在模拟割草应用的场景中能实现全覆盖草地作业的效果。
 
+<div align="center"> <image src="image/image_planner_result.png" width=400> </div>
+<center style="font-size:14px;color:#C0C0C0;">图1</center> 
+#### 详细设置
+Viobot-UI连接Viobot2，在loop页设置好地图路径，点击开启回环/重定位，开启算法后绕割草区域一周，点击保存bow。
+
+<div align="center"> <image src="image/image_setting_planner.png" width=400> </div>
+<center style="font-size:14px;color:#C0C0C0;">loop页设置地图保存路径</center> 
+类似于图1这样开启stereo3算法在草地边缘运行走一圈形成一个封闭的路径，然后保存地图：
+
+<div align="center"> <image src="image/image_planner_save_bow.png" width=400> </div>
+<center style="font-size:14px;color:#C0C0C0;">点击保存bow保存地图</center> 
+
+然后停止stereo3算法，在设置->loop->勾选加载地图
+
+<div align="center"> <image src="image/image_planner_load_map.png" width=400> </div>
+<center style="font-size:14px;color:#C0C0C0;">加载地图</center> 
+
+
+## 第三方规划器
+### ROS MoveBase
 例程代码地址：[Hessian-matrix/nav_demo: viobot use for navigation](https://github.com/Hessian-matrix/nav_demo)
 
 注：此教程以轮式机器人作为一个样例，具体的应用还需要用户自己去做更深入的开发。
@@ -18,11 +41,11 @@
 
 接下来就是例程的粗略讲解
 
-### 1.viobot输出信息处理
+#### 1.viobot输出信息处理
 
 接收stereo2的位姿和点云，使用TF转换，构建TF树。
 
-#### 1）接收消息，注册回调函数
+##### 1）接收消息，注册回调函数
 
 ```c++
 std::string point_clound_topic;
@@ -34,7 +57,7 @@ sub_car_odom = nh.subscribe("/odom", 50, &VioOdomNodelet::car_odom_callback, thi
 sub_pointcloud = nh.subscribe(point_clound_topic, 50, &VioOdomNodelet::loop_pointclound_callback, this);
 ```
 
-#### 2）回调函数处理位姿信息
+##### 2）回调函数处理位姿信息
 
 自己去维护了一个从`base_link`到`vio_odom`的动态TF变换
 
@@ -125,7 +148,7 @@ void VioOdomNodelet::loop_pose_callback(const nav_msgs::OdometryPtr &msg){
 }
 ```
 
-#### 3）回调函数处理点云信息
+##### 3）回调函数处理点云信息
 
 把点云划到vio\_odom上面，它会根据上面的`base_link`到`vio_odom`的动态TF变换变换
 
@@ -177,13 +200,13 @@ void VioOdomNodelet::loop_pointclound_callback(const sensor_msgs::PointCloud2Con
 }
 ```
 
-### 2.pointcloud转laserscan
+#### 2.pointcloud转laserscan
 
 其实就是根据原有的开源代码做了一下修改，原有的代码配置了use\_inf为false时，当点云的距离大于range\_max就不显示了，这样会造成一些刷新上面的困难，所以再输出/scan话题之前加了1.5m的距离，让/scan话题初始就是一个range\_max+1.5的扇形，根据障碍物来刷新。
 
-### 3.move\_base配置
+#### 3.move\_base配置
 
-#### 1）launch文件
+##### 1）launch文件
 
 主要是启动map\_server加载地图文件和启动move\_base并加载了配置文件。
 
@@ -207,11 +230,11 @@ void VioOdomNodelet::loop_pointclound_callback(const sensor_msgs::PointCloud2Con
 </launch>
 ```
 
-#### 2）地图文件
+##### 2）地图文件
 
 这个需要用户把自己的场景先建里一个地图先验，可以是使用雷达等设备，也可以使用viobot（这个建图要单独开一篇来讲）。
 
-#### 3）move\_base配置文件
+##### 3）move\_base配置文件
 
 每个文件的参数都有详细注释，用户可以自行查看参数的意义和选择配置。
 
@@ -220,3 +243,46 @@ void VioOdomNodelet::loop_pointclound_callback(const sensor_msgs::PointCloud2Con
 障碍物层输入是/scan ，不使用pointcloud是因为move\_base底层代码逻辑，避障是使用世界系的点云的，其实避障使用body系点云应该是更合理的，所以我们把一定高度范围的pointcloud转成了/scan；其次是obstacle\_range和raytrace\_range两个参数，它会跟踪raytrace\_range范围内的障碍物，但是只有在obstacle\_range范围内的障碍物点才会被加到代价地图，所以我们前面在转/scan的出话题的时候加了那个1.5m就是为了把大部分点定到obstacle\_range和raytrace\_range中间，使得障碍物能够快速被刷新。
 
 ![](image/image_4SSY1Z656X.png)
+
+### ROS2 Navigation2
+
+例程代码地址
+
+> 注：此教程以轮式机器人作为一个样例，具体的应用还需要用户自己去做更深入的开发，目前建图还未支持构建栅格地图。
+
+此项目目的是发布nav2所需的必要tf变换。
+
+节点会获取算法的位姿数据，然后根据设备和机器人的外参关系，发布map->odom -> base_link的tf变换。
+
+map目录下的地图为空地图，可用于无先验地图时的nav2使用。
+
+#### 使用说明
+
+##### 1、编译该项目
+
+```bash
+colcon build
+```
+
+##### 2、运行节点
+
+```
+source install/setup.bash
+ros2 run TF_Pub TF_node
+```
+
+##### 3、运行nav2启动文件
+
+```
+ros2 launch nav2_bringup bringup_launch.py  map:=/home/ubuntu22/tf_ws/src/map.yaml
+```
+
+上面的地图路径需要根据具体路径进行修改
+
+##### 4、开始导航
+
+```
+rviz2
+```
+
+在地
