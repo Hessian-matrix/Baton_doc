@@ -34,5 +34,5 @@ Viobot2自带系统默认为Ubuntu20.04 + ROS noetic （可选配 Ubuntu22.04 +R
 
 ![](image/image_-xnOwN_BYF.png)
 
-## 硬件接口说明
+## 五、硬件接口说明
 ![](image/image_bord_interface.png)

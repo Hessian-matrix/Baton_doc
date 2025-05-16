@@ -2,22 +2,22 @@
 ## HM Planner
 ### 全覆盖路径规划
 Viobot2搭载了全覆盖的弓形路径规划算法，基于纯视觉里程计和重定位实现，在模拟割草应用的场景中能实现全覆盖草地作业的效果。
-
-<div align="center"> <image src="image/image_planner_result.png" width=400> </div>
+![](image/image_planner_result.png)
 <center style="font-size:14px;color:#C0C0C0;">图1</center> 
+
 #### 详细设置
 Viobot-UI连接Viobot2，在loop页设置好地图路径，点击开启回环/重定位，开启算法后绕割草区域一周，点击保存bow。
 
-<div align="center"> <image src="image/image_setting_planner.png" width=400> </div>
+![](image/image_setting_planner.png)
 <center style="font-size:14px;color:#C0C0C0;">loop页设置地图保存路径</center> 
 类似于图1这样开启stereo3算法在草地边缘运行走一圈形成一个封闭的路径，然后保存地图：
 
-<div align="center"> <image src="image/image_planner_save_bow.png" width=400> </div>
+![](image/image_planner_save_bow.png)
 <center style="font-size:14px;color:#C0C0C0;">点击保存bow保存地图</center> 
 
 然后停止stereo3算法，在设置->loop->勾选加载地图
 
-<div align="center"> <image src="image/image_planner_load_map.png" width=400> </div>
+![](image/image_planner_load_map.png)
 <center style="font-size:14px;color:#C0C0C0;">加载地图</center> 
 
 
@@ -285,4 +285,16 @@ ros2 launch nav2_bringup bringup_launch.py  map:=/home/ubuntu22/tf_ws/src/map.ya
 rviz2
 ```
 
-在地
+在地图上给出Nav2 Goal
+
+此时就会看到规划出一条轨迹
+
+##### 5、运行车辆控制节点
+
+此时运行你们的车辆控制节点即可
+
+#### 注意事项
+
+代码里面需要设备跟机器人之间的外参，需要根据实际情况做出修改。
+
+经测试，直接使用机械图纸的参数也能满足正常使用
