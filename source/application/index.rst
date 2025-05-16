@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-应用Demo
+HM_INSIDE应用
 ======================================
 
 .. toctree::
@@ -11,5 +11,5 @@
    :caption: Contents:
 
    Viobot定位用于导航
-   Viobot建图
+   Viobot建图与重定位
    
