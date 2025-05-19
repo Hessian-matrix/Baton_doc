@@ -1,6 +1,7 @@
 # HM Planner
 ## 全覆盖路径规划
-Viobot2搭载了全覆盖的弓形路径规划算法，基于纯视觉里程计和重定位实现，在模拟割草应用的场景中能实现全覆盖草地作业的效果。
+Viobot2内置了全覆盖的弓形路径规划算法，基于纯视觉里程计和重定位实现，在一些需要全覆盖的应用场景如家庭扫地机、割草机能直接使用。
+
 ![](image/image_planner_result.png)
 <center style="font-size:14px;color:#C0C0C0;">图1</center> 
 
@@ -9,7 +10,7 @@ Viobot-UI连接Viobot2，在loop页设置好地图路径，点击开启回环/�
 
 ![](image/image_setting_planner.png)
 <center style="font-size:14px;color:#C0C0C0;">loop页设置地图保存路径</center> 
-类似于图1这样开启stereo3算法在草地边缘运行走一圈形成一个封闭的路径，然后保存地图：
+类似于图1这样开启stereo3算法在需要全覆盖的作业范围的边缘运行走一圈形成一个封闭的路径，然后保存地图：
 
 ![](image/image_planner_save_bow.png)
 <center style="font-size:14px;color:#C0C0C0;">点击保存bow保存地图</center> 
@@ -24,5 +25,22 @@ Viobot-UI连接Viobot2，在loop页设置好地图路径，点击开启回环/�
 rosrun hm_planner planner_coverage_v1
 ~~~
 
-然后在Viobot-UI上就可看到全覆盖的规划路径了，规划算法会发布/cmd_vel控制底盘指令，接收该话题控制车辆即可实现全覆盖割草。
+然后在Viobot-UI上就可看到全覆盖的规划路径了，规划算法会发布/cmd_vel控制底盘指令，接收该话题控制车辆即可实现全覆盖作业任务。
 
+### 规划器的参数配置
+
+配置文件路径在`/root/Baton/install/share/hm_planner/config/config.yaml`,其中的配置内容主要是常见的规划器配置和坐标系的相关配置：
+
+~~~ yaml
+lineSpacing：覆盖间隔
+max_linear_speed：最大线速度
+max_angular_speed：最大角速度
+
+t_camera_vehicle_x：车辆中心到相机外参的x分量
+t_camera_vehicle_y：车辆中心到相机外参的y分量
+t_camera_vehicle_z：车辆中心到相机外参的z分量
+~~~
+
+坐标系请参考下图：
+
+![](image/image_tf_frame.png)
