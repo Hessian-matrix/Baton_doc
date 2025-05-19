@@ -17,7 +17,8 @@ Welcome to Viobot2_doc's documentation!
    硬件接口使用/index
    ROS_Master/index    
    SDK测试例程/index
-   application/index  
+   application/index 
+   通用导航例程/index 
    模块接入/index
    相关资料下载/index
    

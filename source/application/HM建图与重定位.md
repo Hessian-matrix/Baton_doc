@@ -2,10 +2,14 @@
 
 此文档用于演示如何用viobt2实现sfm重建功能（建图）,以及用建好的地图做全局重定位。
 
-> **注意：**
 > - 目前Robobaton + HM inside支持在5000平方米内不分室内外的大部分场景中的各类机器人三维自主导航定位与感知；
 > - HM Localization + 组合导航，结合HM Perception实现中低速自由探索；
+
+**注意：**
 > - <font color='#FF0000'>不支持：如雪原、隧道等视觉特征/光照太差的场景、精度要求极高的严肃工业场景海拔30米向上飞行场景。</font>
+> - <font color='#FF0000'>目前SFM重建在无纹理区域、走廊白墙场景容易失败。</font>
+> - <font color='#FF0000'>目前重定位在平坦、开阔、近处特征少的场景重定位精度会降低，系统仍然可以依靠GNSS、RTK以及视觉定位正常工作。</font>
+> - <font color='#FF0000'>重定位并未与GNSS、RTK的信息做耦合，之后有计划做适配，请用户敬请期待。</font>
 
 
 
@@ -53,6 +57,8 @@ viobot-ui连接viobot2，点击设置，找到loop一栏：
 ```shell
 root@PR-VIO: cd /home/my_relocation
 root@PR-VIO:/home/my_relocation# tree
+|-- xxx.jpg
+|-- ...
 `-- images
     |-- ...
 `-- result
