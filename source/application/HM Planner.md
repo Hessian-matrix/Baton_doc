@@ -1,11 +1,15 @@
 # HM Planner
 ## 全覆盖路径规划
+
+### 简介
+
 Viobot2内置了全覆盖的弓形路径规划算法，基于纯视觉里程计和重定位实现，在一些需要全覆盖的应用场景如家庭扫地机、割草机能直接使用。
 
 ![](image/image_planner_result.png)
 <center style="font-size:14px;color:#C0C0C0;">图1</center> 
 
-## 详细流程
+### 详细流程
+
 Viobot-UI连接Viobot2，在loop页设置好地图路径，点击开启回环/重定位，开启算法后绕割草区域一周，点击保存bow。
 
 ![](image/image_setting_planner.png)
