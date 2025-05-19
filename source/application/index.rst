@@ -10,7 +10,10 @@ HM_INSIDE应用
    :maxdepth: 2
    :caption: Contents:
 
-   HM导航规划
+   HM Inside
+   HM Planner
    HM建图与重定位
    HM双目深度
+   ROS MoveBase
+   ROS2 Navigation2
    

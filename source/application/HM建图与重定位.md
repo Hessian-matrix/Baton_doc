@@ -1,6 +1,13 @@
 # HM建图与重定位
 
->  此文档用于演示如何用viobt2实现sfm重建功能（建图）,以及用建好的地图做全局重定位。
+此文档用于演示如何用viobt2实现sfm重建功能（建图）,以及用建好的地图做全局重定位。
+
+> **注意：**
+> - 目前Robobaton + HM inside支持在5000平方米内不分室内外的大部分场景中的各类机器人三维自主导航定位与感知；
+> - HM Localization + 组合导航，结合HM Perception实现中低速自由探索；
+> - <font color='#FF0000'>不支持：如雪原、隧道等视觉特征/光照太差的场景、精度要求极高的严肃工业场景海拔30米向上飞行场景。</font>
+
+
 
 ## 前置准备
 
@@ -31,21 +38,21 @@ viobot-ui连接viobot2，点击设置，找到loop一栏：
 以上设置完成后点击确定，之后再启动stereo3算法，开始移动viobot2去采集数据，注意过程中画面视角不要变化过快避免之后的重建的结果不理想。
 ![](image/image_viobot_setting.png)
 
-需要建图的区域扫描完后点击保存BOW,之后进入下一步离线建图。
+需要建图的区域扫描完后点击保存BOW，等待几秒即可保存完整数据,之后进入下一步离线建图。
 
 ![](image/image_save_bow.png)
 
 
 ## 离线建图
 
-前面已经完成了建图的数据采集，之后点击开始建图之后出现建图的进度条，整个建图的用时视建图的环境大小而增大，进图条结束之后可以在输出路径下的HM_SFM目录下找到重建的结果了：
+前面已经完成了建图的数据采集、基础配置项，建图前建议按照上一节检查一下基础配置项，之后点击开始建图之后出现建图的进度条，整个建图的用时视建图的环境大小而增大，进图条结束之后可以在输出路径下的HM_SFM目录下找到重建的结果了：
 ![](image/image_mapping.png)
 
 下图是用tree来查看建图完成的目录结构
 
 ```shell
-root@PR-VIO: cd /home/my_relocation/HM_SFM
-root@PR-VIO:/home/my_relocation/HM_SFM# tree
+root@PR-VIO: cd /home/my_relocation
+root@PR-VIO:/home/my_relocation# tree
 `-- images
     |-- ...
 `-- result
@@ -61,7 +68,7 @@ root@PR-VIO:/home/my_relocation/HM_SFM# tree
 接下来就是用前面已经建好的图运行重定位功能，首选还是在UI上的设置 loop一栏勾选加载地图选项再保存，然后运行stereo3算法。
 ![](image/image_start_relocation.png)
 
-之后在UI上就可呈现两种颜色的轨迹（里程计和重定位）
+之后在Viobot-UI上位机上会输出一条融合后的轨迹，可以尝试让设备多次运行到同一个地方查看轨迹的变化。
 
 
 

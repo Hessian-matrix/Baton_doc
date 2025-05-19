@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-ROS主从机配置的两种方式
+ROS多机通讯(ROS1 ROS2)
 ======================================
 
 .. toctree::
@@ -12,6 +12,7 @@ ROS主从机配置的两种方式
 
    ROS主从机配置
    ROS多主机配置
+   ROS2多机通讯
    
 
 
