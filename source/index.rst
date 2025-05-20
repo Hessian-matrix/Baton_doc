@@ -23,10 +23,5 @@ Welcome to Viobot2_doc's documentation!
    相关资料下载/index
    
 
-Indices and tables
-==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
