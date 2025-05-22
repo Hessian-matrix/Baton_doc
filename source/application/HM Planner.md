@@ -24,16 +24,22 @@ Viobot-UI连接Viobot2，在loop页设置好地图路径，点击开启回环/�
 ![](image/image_planner_load_map.png)
 <center style="font-size:14px;color:#C0C0C0;">加载地图</center> 
 
-然后重新启动stereo3（注：如果已经圈好了规划的范围且已经勾选了加载地图的话不需要重新启动stereo3，直接开启即可），然后在命令行运行规划器：
+然后重新启动stereo3（注：如果已经圈好了规划的范围且已经勾选了加载地图的话不需要重新启动stereo3，直接开启即可），然后在命令行运行规划器(安装不同版本ROS的Viobot按ROS版本选择以下命令)：
+ROS1:
 ~~~
 rosrun hm_planner planner_coverage_v1
 ~~~
 
+ROS2:
+
+~~~
+ros2 run hm_planner planner_coverage_v1
+~~~
 然后在Viobot-UI上就可看到全覆盖的规划路径了，规划算法会发布/cmd_vel控制底盘指令，接收该话题控制车辆即可实现全覆盖作业任务。
 
 ### 规划器的参数配置
 
-配置文件路径在`/root/Baton/install/share/hm_planner/config/config.yaml`,其中的配置内容主要是常见的规划器配置和坐标系的相关配置：
+ROS1版本的配置文件路径在`/root/Baton/install/share/hm_planner/config/config.yaml`,ROS2版本配置文件路径：`/root/Baton/install/hm_planner/share/hm_planner/config/config.yaml`,其中的配置内容主要是常见的规划器配置和坐标系的相关配置：
 
 ~~~ yaml
 lineSpacing：覆盖间隔
