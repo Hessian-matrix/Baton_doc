@@ -35,7 +35,7 @@ ROS2:
 ~~~
 ros2 run hm_planner planner_coverage_v1
 ~~~
-然后在Viobot-UI上就可看到全覆盖的规划路径了，规划算法会发布/cmd_vel控制底盘指令，接收该话题控制车辆即可实现全覆盖作业任务。
+然后在rviz上就可以通过订阅/baton/planner/global_path话题看到全覆盖的规划路径了，规划算法会发布/cmd_vel控制底盘指令，接收该话题控制车辆即可实现全覆盖作业任务
 
 ### 规划器的参数配置
 
