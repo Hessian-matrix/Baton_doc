@@ -41,6 +41,28 @@ viobot-ui连接viobot2，点击设置，找到loop一栏：
 - mask路径就是当viobot镜头画面中有固定物体的遮挡时设置区域屏蔽作用的，如安装到小车上可以通过设置mask屏蔽画面中的车体部分对算法的影响，如没有画面遮挡保持为空即可；
 
 以上设置完成后点击确定，之后再启动stereo3算法，开始移动viobot2去采集数据，注意过程中画面视角不要变化过快避免之后的重建的结果不理想。
+
+如果不通过UI配置采集数据的方法：
+配置`/root/Baton/install/share/baton/config/sys.yaml`,
+~~~ yaml
+print_queue: false
+use_imu: 2
+dt_threshold: 6
+gnss_select: 2
+load_previous_pose_graph: false
+add_keyframe_mode: 1        #需要开启建图数据记录此项为1
+pose_graph_save_path: /home/user/pose_graph/    #保存pose_graph的路径
+gnss_T_imu:
+  data:
+    - 0
+    - 0
+    - 0
+relocalization: false   #建图完后有了地图此项为true就是开启了重定位
+mask_path: ""
+only_sfm_data: true
+~~~
+
+
 ![](image/image_viobot_setting.png)
 
 需要建图的区域扫描完后点击保存BOW，等待几秒即可保存完整数据,之后进入下一步离线建图。
@@ -48,8 +70,14 @@ viobot-ui连接viobot2，点击设置，找到loop一栏：
 ![](image/image_save_bow.png)
 
 > Tips: 也可通过ros的话题控制保存bow：
-> ros1: rostopic pub -1 /baton/loop/keyframe_action/goal loop_action/KeyFrameHandleActionGoal  "goal: {function: 2}"
-> ros2: ros2 action send_goal /baton/loop/keyframe_action loop_action/KeyFrameHandle "{function: 2}"
+~~~ shell
+# ros1: 
+rostopic pub -1 /baton/loop/keyframe_action/goal loop_action/KeyFrameHandleActionGoal  "goal: {function: 2}" #function=2即保存bow
+
+
+# ros2
+ros2: ros2 action send_goal /baton/loop/keyframe_action loop_action/KeyFrameHandle "{function: 2}"  #function=2即保存bow
+~~~
 
 ## 离线建图
 
@@ -57,8 +85,10 @@ viobot-ui连接viobot2，点击设置，找到loop一栏：
 前面已经完成了建图的数据采集、基础配置项，建图前建议按照上一节检查一下基础配置项，之后点击“开始建图”之后出现建图的进度条，整个建图的用时视建图的环境大小而增大，进图条结束之后可以在输出路径下的HM_SFM目录下找到重建的结果了：
 ![](image/image_mapping.png)
 
-> 注意：整个建图过程中对算力需求很高，viobot2的cpu在这段时间会出现cpu占用跑满的情况，都是正常的现象，等建图完成之后cpu占用就会恢复正常，在此过程中注意保持viobot2供电的稳定性。
-> 注意：整个建图过程中对算力需求很高，viobot2的cpu在这段时间会出现cpu占用跑满的情况，都是正常的现象，等建图完成之后cpu占用就会恢复正常，在此过程中注意保持viobot2供电的稳定性。
+> 注意：整个建图过程中对算力需求很高，viobot2的cpu在这段时间会出现cpu占用跑满的情况，是正常的现象，等建图完成之后cpu占用就会恢复正常，在此过程中注意保持viobot2供电的稳定性。
+
+> 建图时如果出现进度条一点就跑完的需要检查一下前面保存bow的路径是否正确，以及路径下是否有bow保存的词袋文件这些，正常情况下建图是一分钟以上的。
+
 下图是用tree来查看建图完成的目录结构
 
 ```shell
@@ -66,9 +96,9 @@ root@PR-VIO: cd /home/my_relocation
 root@PR-VIO:/home/my_relocation# tree
 |-- xxx.jpg
 |-- ...
-`-- images
+`-- images  # 文件夹
     |-- ...
-`-- result
+`-- result  # 文件夹
     |-- database.db
     `-- sparse
         `-- 0
