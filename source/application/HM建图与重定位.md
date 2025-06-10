@@ -47,6 +47,9 @@ viobot-ui连接viobot2，点击设置，找到loop一栏：
 
 ![](image/image_save_bow.png)
 
+> Tips: 也可通过ros的话题控制保存bow：
+> ros1: rostopic pub -1 /baton/loop/keyframe_action/goal loop_action/KeyFrameHandleActionGoal  "goal: {function: 2}"
+> ros2: ros2 action send_goal /baton/loop/keyframe_action loop_action/KeyFrameHandle "{function: 2}"
 
 ## 离线建图
 
