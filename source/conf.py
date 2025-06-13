@@ -13,7 +13,7 @@ project = 'Viobot2用户手册'
 # project = 'baton_doc'
 copyright = '2024, hessian'
 author = 'HessianMatrix'
-release = '1.2'
+release = '1.21'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
