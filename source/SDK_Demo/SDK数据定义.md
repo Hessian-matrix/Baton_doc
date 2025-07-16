@@ -2,7 +2,7 @@
 
 设备上电会开启一个服务器，通过http协议进行参数读写及流数据获取，也可以通过ros主从机通信来控制以及获取数据和设备状态。
 
-## 1.设置和操作
+<!-- ## 1.设置和操作
 
 ### （1）设置设备ip
 
@@ -56,14 +56,12 @@ ROS控制需要发送下面的话题，话题数据是自定义的，详情参�
 ```
 Type: system_ctrl::algo_ctrl
 Topic: /stereo1_ctrl    /stereo2_ctrl    /mono_ctrl
-```
+``` -->
 
-## 2.数据输出
+## 1.SDK数据输出
 
-### SDK输出:
-
-### （1）raw\_data
-
+### （1）传感器原始数据
+<!-- todo -->
 注：需设置raw_data输出
 
 #### 1）imu
@@ -83,23 +81,6 @@ uint32_t time_stamp;
 char data[width * height];
 ```
 
-#### 3）tof数据
-
-深度图
-
-```c
-uint16_t width,height;
-uint32_t time_stamp;
-uint16_t data[width * height];
-```
-
-幅度图
-
-```c
-uint16_t width,height;
-uint32_t time_stamp;
-uint16_t data[width * height];
-```
 
 ### （2）算法数据
 
@@ -107,38 +88,48 @@ uint16_t data[width * height];
 
 ##### 		1）位姿
 
-​			7个float数据——位置x,y,z+四元数x,y,z,w。通过流获取，详见3.（11）
+​			7个float数据——位置x,y,z+四元数x,y,z,w。通过流获取，详见3.（5）获取数据流
 
 ##### 		2）速度
 
-​			3个double数据——x,y,z。通过流获取，详见3.（11）
+​			3个double数据——x,y,z。通过流获取，详见3.（5）获取数据流
 
-#####  	 3）点云
 
-​		  x,y,z 通过流获取，详见3.（11）
-
-### （3）参数数据
-
-&#x20;   按需获取的数据，单次响应
-
-#### 	1）可见光内参
+### （3）相机内外参数据
 
 ```c
 //内参结构体
 typedef struct{
-    float focal_length_x;                  // 焦距长度x (像素)
-    float focal_length_y;                  // 焦距长度y (像素)
-    float optical_center_point_x;          // 光心投影坐标x(像素y)
-    float optical_center_point_y;          // 光心投影坐标y(像素)
-    float radia_distortion_coef_k1;        // radtan相机畸变模型畸变系数k1
-    float radia_distortion_coef_k2;        // radtan相机畸变模型畸变系数k2
-    float radia_distortion_coef_k3;        // radtan相机畸变模型畸变系数k3
-    float tangential_distortion_p1;        // radtan相机畸变模型畸变系数p1
-    float tangential_distortion_p2;        // radtan相机畸变模型畸变系数p2
+    float left_cam_fx;      // 焦距长度x (像素)
+    float left_cam_fy;      // 焦距长度y (像素)
+    float left_cam_cx;      // 光心投影坐标x(像素)
+    float left_cam_cy;      // 光心投影坐标y(像素)
+    float left_cam_xi;      //double sphere畸变系数xi
+    float left_cam_alpha;   //double sphere畸变系数alpha
+    float right_cam_fx;
+    float right_cam_fy;
+    float right_cam_cx;
+    float right_cam_cy;
+    float right_cam_xi;
+    float right_cam_alpha;
+    float cam_extrinsic_px;         //右目到左目的位姿变换（平移+四元数旋转）
+    float cam_extrinsic_py;
+    float cam_extrinsic_pz;
+    float cam_extrinsic_qx;
+    float cam_extrinsic_qy;
+    float cam_extrinsic_qz;
+    float cam_extrinsic_qw;
+    float CL2I_extrinsic_px;        //左目到imu的位姿变换（平移+四元数旋转）
+    float CL2I_extrinsic_py;
+    float CL2I_extrinsic_pz;
+    float CL2I_extrinsic_qx;
+    float CL2I_extrinsic_qy;
+    float CL2I_extrinsic_qz;
+    float CL2I_extrinsic_qw;
 } LensPara;
 ```
 
-#### 	2）IMU内参
+<!-- #### 	2）IMU内参 无响应
 
 ```c
 //内参结构体
@@ -148,34 +139,12 @@ typedef struct{
     float gyr_n;          // 陀螺仪噪声
     float gyr_w;          // 陀螺仪随机游走
 } ImuParam;
-```
+``` -->
 
-#### 	3）tof内参
 
-```c
-//内参结构体
-typedef struct{
-    float focal_length_x;                  // 焦距长度x (像素)
-    float focal_length_y;                  // 焦距长度y (像素)
-    float optical_center_point_x;          // 光心投影坐标x(像素y)
-    float optical_center_point_y;          // 光心投影坐标y(像素)
-    float radia_distortion_coef_k1;        // radtan相机畸变模型畸变系数k1
-    float radia_distortion_coef_k2;        // radtan相机畸变模型畸变系数k2
-    float radia_distortion_coef_k3;        // radtan相机畸变模型畸变系数k3
-    float tangential_distortion_p1;        // radtan相机畸变模型畸变系数p1
-    float tangential_distortion_p2;        // radtan相机畸变模型畸变系数p2
-} LensPara;
-```
 
-#### 4）外参
 
-​	3行4列变换矩阵       12个float数据
-
-​	CamToImu
-
-​	TofToCam0
-
-### （4）系统算法状态
+<!-- ### （4）系统算法状态
 
 ```c
 typedef enum{
@@ -191,16 +160,16 @@ typedef enum{
 
 单个字节，上电连接后默认为ready，给设备发送了启动指后会进入初始化状态（initializing），初始化完成进入运行状态（running）
 
-注：默认可以通过ros获取数据
+注：默认可以通过ros获取数据 -->
 
-### ROS话题：
+<!-- ### ROS话题：
 
 #### (1)raw_data
 
 i.图像数据
 
 ```c
-Type: sensor_msgs::Image
+Type: sensor_msgs/msg/Image
 Topic: /image_left     /image_right
 ```
 
@@ -405,7 +374,7 @@ Topic: /mono1_loop/loop_pose
 ```
 Type:sensor_pub::msg::ImageInfo
 Topic: /camera_left_info  /camera_right_info
-```
+``` -->
 
 ## 3.通信协议
 
@@ -431,33 +400,72 @@ BODY参数定义：
 | heartbeatPort | 心跳端口 |
 | udpPort       | UDP端口  |
 
- 
+ 示例：
+ ~~~ json
+GET: http://192.168.3.10:8000/System/network
+retrun:
+{
+    "ipaddr": "192.168.3.10",
+    "submask": "255.255.255.0",
+    "gateway": "192.168.3.1",
+    "macaddr": "FF:FF:FF:FF:FF:FF",
+    "commandPort": 8000,
+    "heartbeatPort": 6789,
+    "udpPort": 10000
+}
+ ~~~
 
-### （2）镜头参数
+### （2）相机内外参
 
-| ***\*URL\****                                                | http://< ip >:< port >/Config/lens?Camera=< param >          |
+| ***\*URL\****                                                | http://< ip >:< port >/System/param        |
 | :----------------------------------------------------------- | ------------------------------------------------------------ |
-| URL参数：<br />   Camera=1:左目可见光<br />   Camera=2:右目可见光<br />   Camera=3:TOF |                                                              |
 | ***\*METHOD\****                                             | GET                                                          |
-| ***\*BODY\****                                               | { <br />   "focal_length_x":0,<br />    "focal_length_y":0, <br />    "optical_center_point_x":0,<br />     "optical_center_point_y":0,<br />     "radia_distortion_coef_k1":0,<br />     "radia_distortion_coef_k2":0,<br />     "radia_distortion_coef_k3":0,<br />     "tangential_distortion_p1":0,<br />     "tangential_distortion_p2":0<br />} |
-| 注：                                                         | 单目版本只有1和3，双目无TOF版本只有1和2                      |
+
+
 
 BODY参数定义：（float）
 
-| focal_length_x           | 焦距长度x (像素)             |
+| alpha fx fy cx cy xi     | double spere 相机模型畸变参数|
 | ------------------------ | ---------------------------- |
-| focal_length_y           | 焦距长度y (像素)             |
-| optical_center_point_x   | 光心投影坐标x                |
-| optical_center_point_y   | 光心投影坐标y                |
-| radia_distortion_coef_k1 | radtan相机畸变模型畸变系数k1 |
-| radia_distortion_coef_k2 | radtan相机畸变模型畸变系数k2 |
-| radia_distortion_coef_k3 | radtan相机畸变模型畸变系数k3 |
-| tangential_distortion_p1 | radtan相机畸变模型畸变系数p1 |
-| tangential_distortion_p2 | radtan相机畸变模型畸变系数p2 |
+|cam_extrinsi              |右目到左目的坐标变换           |
+| CL2I_extrinsic           | 左目到imu的坐标变换          |
 
+示例
+~~~
+GET: http://192.168.3.10:8000/System/param
+return:
+{
+    "left_cam.fx": 161.841393477148586,
+    "left_cam.fy": 161.730837115321521,
+    "left_cam.cx": 320.211856996505389,
+    "left_cam.cy": 237.303872164579872,
+    "left_cam.xi": -0.279593379748090,
+    "left_cam.alpha": 0.563464940393459,
+    "right_cam.fx": 165.576971762865526,
+    "right_cam.fy": 165.447644216261438,
+    "right_cam.cx": 320.046219470526012,
+    "right_cam.cy": 241.989924464922581,
+    "right_cam.xi": -0.258659860632949,
+    "right_cam.alpha": 0.569348129203276,
+    "cam_extrinsic.px": 0.057603404270098,
+    "cam_extrinsic.py": 0.000982731176737,
+    "cam_extrinsic.pz": 0.000121991681132,
+    "cam_extrinsic.qx": -0.000426461815132,
+    "cam_extrinsic.qy": 0.001524022245945,
+    "cam_extrinsic.qz": 0.001893525715907,
+    "cam_extrinsic.qw": 0.999996955018803,
+    "CL2I_extrinsic.px": 0.031381137669086,
+    "CL2I_extrinsic.py": 0.003780222497880,
+    "CL2I_extrinsic.pz": -0.000907357316464,
+    "CL2I_extrinsic.qx": -0.005790754170666,
+    "CL2I_extrinsic.qy": 0.999981432980785,
+    "CL2I_extrinsic.qz": -0.001751826831367,
+    "CL2I_extrinsic.qw": 0.000724035690780
+}
+~~~
  
 
-### （3）IMU内参 
+<!-- ### （3）IMU内参 
 
 | ***\*URL\****    | http://< ip >:< port >/Config/imuInter                       |
 | ---------------- | ------------------------------------------------------------ |
@@ -470,11 +478,11 @@ BODY参数定义：（float）
 | ----- | ---------------- |
 | acc_w | 加速度计随机游走 |
 | gyr_n | 陀螺仪噪声       |
-| gyr_w | 陀螺仪随机游走   |
+| gyr_w | 陀螺仪随机游走   | -->
 
  
 
-### （4）smart参数
+### （3）smart参数
 
 | ***\*URL\****    | http://< ip >:< port >/Config/smart                          |
 | ---------------- | ------------------------------------------------------------ |
@@ -504,16 +512,16 @@ BODY参数定义：
 
 
 
-### （5）重定位
+<!-- ### （4）重定位
 
 | ***\*URL\****    | http://< ip >:< port >/Smart/relocation |
 | ---------------- | --------------------------------------- |
 | ***\*METHOD\**** | PUT                                     |
 | ***\*BODY\****   | [0,0,0,0,0,0,0,0,0,0,0,0]               |
 
-BODY参数定义：一个3行4列的位姿变换矩阵，由12个浮点数组成的数组，每4个值表示矩阵的一行
+BODY参数定义：一个3行4列的位姿变换矩阵，由12个浮点数组成的数组，每4个值表示矩阵的一行 -->
 
-###  （6）Vio算法控制
+###  （4）Vio算法控制
 
 #### 1）Vio算法启用
 
@@ -521,7 +529,7 @@ BODY参数定义：一个3行4列的位姿变换矩阵，由12个浮点数组成
 | ---------------- | ---------------------------------------------------------- |
 | ***\*METHOD\**** | PUT                                                        |
 | ***\*BODY\****   | 无                                                         |
-| 注：             | "algo_tyep_num":<br />1:stereo1<br />2.stereo2<br />3.mono |
+| 注：             | "algo_tyep_num":<br />4:stereo3                            |
 
 #### 2）Vio算法禁用
 
@@ -529,7 +537,7 @@ BODY参数定义：一个3行4列的位姿变换矩阵，由12个浮点数组成
 | ---------------- | ---------------------------------------------------------- |
 | ***\*METHOD\**** | PUT                                                        |
 | ***\*BODY\****   | 无                                                         |
-| 注：             | "algo_tyep_num":<br />1:stereo1<br />2.stereo2<br />3.mono |
+| 注：             | "algo_tyep_num":<br />4:stereo3                            |
 
 #### 3）Vio算法重启
 
@@ -537,7 +545,7 @@ BODY参数定义：一个3行4列的位姿变换矩阵，由12个浮点数组成
 | ---------------- | ---------------------------------------------------------- |
 | ***\*METHOD\**** | PUT                                                        |
 | ***\*BODY\****   | 无                                                         |
-| 注：             | "algo_tyep_num":<br />1:stereo1<br />2.stereo2<br />3.mono |
+| 注：             | "algo_tyep_num":<br />4:stereo3                            |
 
 #### 4）Vio算法重置
 
@@ -545,51 +553,51 @@ BODY参数定义：一个3行4列的位姿变换矩阵，由12个浮点数组成
 | ---------------- | ---------------------------------------------------------- |
 | ***\*METHOD\**** | PUT                                                        |
 | ***\*BODY\****   | 无                                                         |
-| 注：             | "algo_tyep_num":<br />1:stereo1<br />2.stereo2<br />3.mono |
+| 注：             | "algo_tyep_num":<br />4:stereo3                            |
 
 
 
-###  （7）回环添加关键帧
+<!-- ###  （7）回环添加关键帧
 
 | ***\*URL\****    | http://< ip >:< port >/Smart/addKeyFrame |
 | ---------------- | ---------------------------------------- |
 | ***\*METHOD\**** | PUT                                      |
-| ***\*BODY\****   | 无                                       |
+| ***\*BODY\****   | 无                                       | -->
 
  
 
-###  （8）回环保存关键帧
+<!-- ###  （8）回环保存关键帧
 
 | ***\*URL\****    | http://< ip >:< port >/Smart/saveKeyFrame |
 | ---------------- | ----------------------------------------- |
 | ***\*METHOD\**** | PUT                                       |
-| ***\*BODY\****   | 无                                        |
+| ***\*BODY\****   | 无                                        | -->
 
  
 
-### （9）cam2imu参数
+<!-- ### （9）cam2imu参数
 
 | ***\*URL\****    | http://< ip >:< port >/Config/cam2imu |
 | ---------------- | ------------------------------------- |
 | ***\*METHOD\**** | GET                                   |
 | ***\*BODY\****   | [0,0,0,0, 0,0,0,0, 0,0,0,0]           |
 
-BODY参数定义：一个3行4列的变换矩阵，由12个浮点数组成的数组，每4个值表示矩阵的一行
+BODY参数定义：一个3行4列的变换矩阵，由12个浮点数组成的数组，每4个值表示矩阵的一行 -->
 
-### （10）tof2cam参数
+<!-- ### （10）tof2cam参数
 
 | ***\*URL\****    | http://< ip >:< port >/Config/tof2cam |
 | ---------------- | ------------------------------------- |
 | ***\*METHOD\**** | GET                                   |
 | ***\*BODY\****   | [0,0,0,0, 0,0,0,0, 0,0,0,0]           |
 
-BODY参数定义：一个3行4列的变换矩阵，由12个浮点数组成的数组，每4个值表示矩阵的一行
+BODY参数定义：一个3行4列的变换矩阵，由12个浮点数组成的数组，每4个值表示矩阵的一行 -->
 
-### （11）获取数据流
+### （5）获取数据流
 
 | ***\*URL\****    | http://< ip >:< port >/Stream?Channel=< chan >               |
 | ---------------- | ------------------------------------------------------------ |
-|                  | chan:数据流通道号<br />   通道1：imu + stereo1位姿 + stereo2位姿 + 速度  + 补光灯实时状态 + TOF实时状态 + 系统状态<br />   通道2：左目可见光灰度图<br />   通道3：深度图 + 幅度图<br />   通道4：算法输出点云 <br />   通道5：tof点云  <br />   通道6：右目可见光灰度图<br />   通道7：全局一致点云<br />   通道8：RDF点云+位姿<br /> |
+|                  | chan:数据流通道号<br />   通道1：imu + stereo3位姿  + 速度   + 系统状态<br />   通道2：左目可见光灰度图<br />   通道3：深度图 + 幅度图<br />   通道4：算法输出点云 <br />   通道5：tof点云  <br />   通道6：右目可见光灰度图<br />   通道7：全局一致点云<br />   通道8：RDF点云+位姿<br /> |
 | ***\*METHOD\**** | GET                                                          |
 | ***\*BODY\****   | 无                                                           |
 | 注：             | 单目版本可见光图为通道2：左目可见光，位姿为stereo1位姿       |

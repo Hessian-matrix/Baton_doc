@@ -74,7 +74,7 @@ std::string local_ip = "192.168.1.11";
 ```
 
 
-重新运行`build_non_ros.sh`脚本编译。然后运行申城的执行文件`baton_mini`
+重新运行`build_non_ros.sh`脚本编译。然后运行生成的执行文件`baton_mini`
 
 #### 3）效果
 

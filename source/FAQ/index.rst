@@ -3,14 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-FAQ
+问题解答
 ======================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   Viobot网络配置之dhcp
+   常见问题
    
 
 

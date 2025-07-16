@@ -1,8 +1,8 @@
 # HTTP Demo
 
-简单说明一下SDK的http使用，给出一个基础的例程。
+简单说明一下SDK的http使用，给出一个基础的例程，另外mini可以使用另一个使用TCP获取imu和相机数据的SDK，详情见SDK_Demo/USB_Demo。
 
-地址：[Hessian-matrix/SDK\_Demo: http demo (github.com)](https://github.com/Hessian-matrix/SDK_Demo "Hessian-matrix/SDK_Demo: http demo (github.com)")或[SDK\_Demo: http demo (gitee.com)](https://gitee.com/hessian_matrix/SDK_Demo "SDK_Demo: http demo (gitee.com)")
+地址：[Hessian-matrix/SDK\_Demo](https://github.com/Hessian-matrix/SDK_Demo "Hessian-matrix/SDK_Demo: http demo (github.com)")或[hessian_matrix/SDK_Demo (gitee.com)](https://gitee.com/hessian_matrix/SDK_Demo "SDK_Demo: http demo (gitee.com)")
 
 ## 1.wimdows下使用
 
@@ -24,7 +24,7 @@
 
 ![](image/image_TMKotXBNkt.png)
 
-### （3）输入2按回车，启动/停止stereo2算法
+### （3）输入2按回车，启动/停止stereo3算法
 
 当系统状态是ready时，启动算法，终端会持续打印通道1的pose和twist数据；当系统状态是stereo2\_running时，停止算法，不会再接收到pose和twist数据，也就没有了打印这两个数据。
 
@@ -70,8 +70,7 @@ make
 
 ![](image/image_TMKotXBNkt.png)
 
-#### 3.输入2按回车，启动/停止stereo2算法
-
+#### 3.输入2按回车，启动/停止stereo23
 当系统状态是ready时，启动算法，终端会持续打印通道1的pose和twist数据；当系统状态是stereo2\_running时，停止算法，不会再接收到pose和twist数据，也就没有了打印这两个数据。
 
 ![](image/image_dAO_56P6Cl.png)
