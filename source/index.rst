@@ -3,12 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Viobot2_doc's documentation!
+VIOBOT2开发者文档
 ======================================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: 章节:
 
    Viobot2简介
    开机指南

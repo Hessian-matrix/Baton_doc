@@ -1,8 +1,8 @@
-# HTTP Demo
+# SDK Demo
 
 简单说明一下SDK的http使用，给出一个基础的例程。
 
-地址：[Hessian-matrix/SDK\_Demo: http demo (github.com)](https://github.com/Hessian-matrix/SDK_Demo "Hessian-matrix/SDK_Demo: http demo (github.com)")或[SDK\_Demo: http demo (gitee.com)](https://gitee.com/hessian_matrix/SDK_Demo "SDK_Demo: http demo (gitee.com)")
+地址：[Hessian-matrix/SDK\_Demo (github.com)](https://github.com/Hessian-matrix/SDK_Demo "Hessian-matrix/SDK_Demo: http demo (github.com)")或[SDK\_Demo(gitee.com)](https://gitee.com/hessian_matrix/SDK_Demo "SDK_Demo: http demo (gitee.com)")
 
 ## 1.wimdows下使用
 
