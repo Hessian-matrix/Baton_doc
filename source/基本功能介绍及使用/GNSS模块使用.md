@@ -1,6 +1,6 @@
 # GNSS模块使用
 
-最好是先去[官网](https://www.hessian-matrix.com/%e4%b8%8b%e8%bd%bd%e4%b8%ad%e5%bf%83/)把最新的客户端和更新包都下下来，更新一遍。
+预先到[hessian-matrix官网](https://www.hessian-matrix.com/%e4%b8%8b%e8%bd%bd%e4%b8%ad%e5%bf%83/)把最新的客户端和更新包都下下来，更新一遍。
 
 ### 一.开启GNSS模块数据接收
 
@@ -43,4 +43,18 @@
 
 ![gnss](image/gnss.png)
 
-我们在使用的过程中也需要注意一下当前运行的场景的可观测卫星数和当前可用卫星数，确保GVIO的良好运行，卫星数不够时，GVIO会退回到VIO模式计算，不影响正常使用。
+
+我们在使用的过程中也需要注意一下当前运行的场景的可观测卫星数和当前可用卫星数，确保GVIO的良好运行，卫星数不够时，GVIO会退回到VIO模式计算，不影响VIO模式的正常使用。
+
+### 五.GNSS数据输出
+
+按照正确的步骤配置好启用GNSS后，可在话题列表中找到GNSS相关的话题信息,ros1版本和ros2版本的消息类型略有区别，这里以ros1的话题为例。其中的话题消息可在我们的[Hessian-matrix ROS_interfaces](https://github.com/Hessian-matrix/ROS_interfaces.git)仓库中下载。
+~~~
+/baton/gnss/ephem       Type: gnss_comm/GnssEphemMsg
+/baton/gnss/meas        Type: gnss_comm/GnssMeasMsg
+~~~
+
+### 六.Stereo3算法GVIO模式数据处理
+
+GNSS没有原始NMEA输出（经纬高直出），输出的是GNSS原始观测量，Stereo3算法是紧耦合GNSS的原始观测量与VIO的视觉惯导信息得到全局系下累积误差更小的位姿。
+如果想获取原始的经纬高输出可以参考[gnss_comm](https://github.com/HKUST-Aerial-Robotics/gnss_comm.git)的解析方法，以及发布的GNSS话题msg。
