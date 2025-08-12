@@ -12,7 +12,10 @@ viobot2使用RTK模块的大致步骤如下：
 
 ## 一.硬件准备
 
-Viobot2不配备RTK模块，需要用到的用户可以自行去选购RTK模块。RTK要求：能输出10Hz+ 的NMEA-0183协议标准的NMEA（GGA）固定解结果以及RMC字串（提供UTC时间、日期信息），一般的RTK模块都能输出这两种语句。
+Viobot2不配备RTK模块，需要用到的用户可以自行去选购RTK模块。RTK要求：能输出10Hz+ 的NMEA-0183协议标准的NMEA（GGA）固定解结果以及**RMC**字串（提供UTC时间、日期信息），一般的RTK模块都能输出这两种语句。
+
+<font color='#FF0000'>注意：使用RTK时需要确保模块本身支持RMC输出，使用hm_rtk 驱动时如果有RMC字串会自动发送给算法做时间同步使用。如果是已有RTK驱动则需要将RMC报文与GGA报文都通过/rtk_nmea话题发布给算法使用。</font>
+
 
 使用外部的GGA字符串通过ros话题`/rtk_nmea`发布给viobot2订阅使用（前提：viobot2配置RTK模式:UI上->设置->gnss栏->勾选RTK）。
 
@@ -98,7 +101,7 @@ RTK功能需要上位机更新到20250314机之后的版本，同步更新设备
 
 ### 2.Viobot2开启RTK启用接口
 
-在上位机连接Viobot2后点击设置，弹出的页面选到gnss页面，其中的两个勾选GNSS和RTK是单选的，默认出厂勾选了GNSS，勾选RTK后，会取消勾选GNSS，点击确定。
+在上位机连接Viobot2后点击设置，弹出的页面选到gnss页面，其中的两个勾选GNSS和RTK是单选的，勾选RTK后，会取消勾选GNSS，点击确定。
 
 ![](image/image_bUwkj-ZYkM.png)
 
