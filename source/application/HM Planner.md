@@ -54,3 +54,7 @@ t_camera_vehicle_z：车辆中心到相机外参的z分量
 坐标系请参考下图：
 
 ![](image/image_tf_frame.png)
+
+相机坐标系和odom坐标系的关系如下：
+
+![](image/image_tf_fream_example.jpg)
