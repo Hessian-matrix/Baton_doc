@@ -75,7 +75,7 @@ pool time.pool.aliyun.com iburst
 pool time1.cloud.tencent.com iburst
 ```
 
-或者使用内部的NTP服务地址：
+或者使用内部的NTP服务地址,这里就不加了，使用网络时间源来给`192.168.1.10`进行时间同步：
 
 ```
 server 192.168.100.100 iburst #假设你的ntp服务地址是192.168.100.100
@@ -104,7 +104,9 @@ server 127.127.1.0
 ```
 sudo systemctl restart ntp
 sudo systemctl enable ntp
+sudo systemctl status ntp
 ```
+![alt text](image/image-250826-ntpstatus.png)
 
 验证服务器状态：
 
@@ -128,7 +130,7 @@ sntp --version    #验证安装是否成功
 编辑 NTP 配置文件​
 
 ```
-sudo vim/etc/ntp.conf
+sudo vim /etc/ntp.conf
 ```
 
 因为这里是完全作为无网的设备使用，核心要修改的地方就是pool以及server，注释掉所有默认的 pool或 server行，再加上自己的sever,这里的`192.168.1.12`就是前面服务器usb网卡的地址，client的ip是`192.168.1.10`；
@@ -136,7 +138,13 @@ sudo vim/etc/ntp.conf
 ```
 server 192.168.1.12 iburst
 ```
-
+然后视情况要不要添加以下的配置,因为ntp在进行时间同步时如果服务器和客户端的时间差太大的话也是无法同步的。
+```shell
+# 允许NTP校正任何大小的时间差
+tinker panic 0
+# 将步进调整的阈值设为3秒。对于超过3秒的偏差，先步进调整到相差3秒以内，然后平滑调整。
+tinker step 3.0
+```
 
 
 ![](./image/2025-08-25-19-38-27-image.png)
@@ -147,7 +155,7 @@ server 192.168.1.12 iburst
 sudo systemctl restart ntp
 ```
 
-验证同步,可以看到client已经使用我们自己的ntp服务器进行时间同步了，可以用date命令来大致的看两边的时间是否是同步的：
+验证同步,可以看到client已经使用我们自己的ntp服务器进行时间同步了，可以用date命令来大致的看两边的时间是否是同步的，如果一直无法使用上配置的ntp服务器的话（就是ntpq -p的结果上服务器前没有\*号，有\*号就代表用上ntp服务器了）可以手动设置一个一天内的时间或者服务器端重启ntp服务:`sudo systemctl restart ntp`
 
 ```
 ntpq -p
