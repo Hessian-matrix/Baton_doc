@@ -43,7 +43,7 @@ viobot-ui连接viobot2，点击设置，找到loop一栏：
 以上设置完成后点击确定，之后再启动stereo3算法，开始移动viobot2去采集数据，注意过程中画面视角不要变化过快避免之后的重建的结果不理想。
 
 如果不通过UI配置采集数据的方法：
-配置`/root/Baton/install/share/baton/config/sys.yaml`,
+按照以下配置`/root/Baton/install/share/baton/config/sys.yaml`,修改`pose_graph_save_path`的路径并记录下来，之后的建图的结果将保存到这里；
 ~~~ yaml
 print_queue: false
 use_imu: 2
@@ -83,6 +83,16 @@ ros2: ros2 action send_goal /baton/loop/keyframe_action loop_action/KeyFrameHand
 
 前面已经完成了建图的数据采集、基础配置项，建图前建议按照上一节检查一下基础配置项，之后点击“开始建图”之后出现建图的进度条，整个建图的用时视建图的环境大小而增大，进图条结束之后可以在输出路径下的HM_SFM目录下找到重建的结果了：
 前面已经完成了建图的数据采集、基础配置项，建图前建议按照上一节检查一下基础配置项，之后点击“开始建图”之后出现建图的进度条，整个建图的用时视建图的环境大小而增大，进图条结束之后可以在输出路径下的HM_SFM目录下找到重建的结果了：
+
+> Tips:此处运行建图也可不通过UI进行建图，ssh登录viobot2通过运行mapping节点进行建图，注意之前配置的路径以及保存的bow文件夹是否存在内容：
+~~~ shell
+# ros1:
+rosrun baton mapping
+~~~
+
+<!-- #ros2的指令目前还没有 ros2:
+ros2 run baton mapping -->
+
 ![](image/image_mapping.png)
 
 > 注意：整个建图过程中对算力需求很高，viobot2的cpu在这段时间会出现cpu占用跑满的情况，是正常的现象，等建图完成之后cpu占用就会恢复正常，在此过程中注意保持viobot2供电的稳定性。
