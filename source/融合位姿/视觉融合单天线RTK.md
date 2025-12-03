@@ -1,4 +1,4 @@
-# 1. RTK模块接入
+# 1. 视觉融合RTK
 
 Viobot2默认标配GNSS模块， 算法默认为GVIO，在没有接入GNSS数据时会退化为VIO模式。支持外部接入RTK模块，RTK数据接入时，GNSS数据会自动摒弃掉，算法融合RTK数据输出更精准位置结果。
 viobot2使用RTK模块的大致步骤如下：
@@ -14,7 +14,6 @@ viobot2使用RTK模块的大致步骤如下：
 
 Viobot2不配备RTK模块，需要用到的用户可以自行去选购RTK模块。RTK要求：能输出10Hz+ 的NMEA-0183协议标准的NMEA（GGA）固定解结果以及**RMC**字串（提供UTC时间、日期信息），一般的RTK模块都能输出这两种语句。
 
-<font color='#FF0000'>注意：使用RTK时需要确保模块本身支持RMC输出，使用hm_rtk 驱动时如果有RMC字串会自动发送给算法做时间同步使用。如果是已有RTK驱动则需要将RMC报文与GGA报文都通过/rtk_nmea话题发布给算法使用。</font>
 
 
 使用外部的GGA字符串通过ros话题`/rtk_nmea`发布给viobot2订阅使用（前提：viobot2配置RTK模式:UI上->设置->gnss栏->勾选RTK）。

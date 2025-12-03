@@ -19,7 +19,7 @@ VIOBOT2开发者文档
    SDK测试例程/index
    application/index 
    通用导航例程/index 
-   模块接入/index
+   融合位姿/index
    相关资料下载/index
    FAQ/index
    
