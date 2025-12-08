@@ -8,12 +8,12 @@ Viobot2算法默认为VIO模式，在没有接入双天线RTK数据时融合位�
 
 viobot2使用RTK模块的大致步骤如下：
 
-0. [硬件准备](#一硬件准备)
-1. [预先编译安装依赖](#二模块驱动)
-2. 编译RTK驱动
-3. [串口连接RTK模块](#1硬件连接)
-4. [RTK外参标定](#5标定rtk与左目外参)
-5. [开启RTK融合算法](#四rtk融合)
+0. [硬件准备]()
+1. [预先编译安装依赖 参考单天线RTK]()
+2. [编译RTK驱动 参考单天线RTK]()
+3. [串口连接RTK模块]()
+4. [RTK外参标定]()
+5. [开启RTK融合算法]()
 
 ## 一.硬件准备
 
@@ -37,10 +37,10 @@ SAVECONFIG
 ```
 um982模块
 
-<img title="" src="./image/um982-image.png" alt="" width="240">
+![](image/um982-image.png) 
 <center style="font-size:14px;color:#C0C0C0;">um982模块</center> 
 
-所以数据流的简图基本等同单天线RTK版本，唯一不同的是话题消息中多了AGRICA报文：
+所以数据流的简图基本等同单天线RTK版本，和单天线模块唯一不同的是话题消息中多了AGRICA报文：
 ![](./image/image_rtk_arrow_pic.png)
 
 
@@ -106,8 +106,7 @@ calib_rtk_slam.launch:
 
 ```
 
-<img title="标定初始的外参坐标系" src="./image/2025-10-28-15-32-39-image.png" alt="" data-align="center" width="600">
-
+![](image/2025-10-28-15-32-39-image.png)
 
 重新开RTK驱动
 
@@ -127,7 +126,7 @@ roslaunch hm_rtk calib_rtk_slam.launch
 
 ## 三、RTK融合
 
-把标定结果重新写到HM\_RTK.launch。
+把标定结果重新写到HM\_RTK.launch，ros2的修改`"install/hm_rtk/share/hm_rtk/launch/hm_rtk_ros2.launch.py"`对应的参数。
 
 ```xml 
 <arg name="ex_rtk_slam_x" default="-0.026357"/>  
@@ -145,6 +144,7 @@ roslaunch hm_rtk calib_rtk_slam.launch
 /baton/stereo3/fusion_path  #融合后的历史轨迹，在SLAM局部坐标系下
 /baton/stereo3/rtk_path     #RTK历史轨迹，在SLAM局部坐标系下
 ```
+> 注意：目前判断RTK是否融合RTK的方式可以通过判断`/baton/stereo3/rtk_path`是否发布以及`/baton/stereo3/fusion_odom`和`/baton/stereo3/odometry`的位姿是否一致；
 
 ## 四、关于时间同步
 

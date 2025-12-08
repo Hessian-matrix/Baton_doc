@@ -6,11 +6,11 @@
 > - HM Localization + 组合导航，结合HM Perception实现中低速自由探索；
 
 **注意：**
-> - <font color='#eb0b0bff'>目前viobot2系统版本为202511xx及之后的版本建图需要最新版本的上位机UI配合使用,请参考本章《SFM重定位新版本UI使用》，11月之前的算法版本不受影响</font>
+> - <font color='#FF0000'>目前viobot2系统版本为202511xx及之后的版本建图需要最新版本的上位机UI配合使用,请参考本章《SFM重定位新版本UI使用》，11月之前的算法版本不受影响</font>
 > - <font color='#FF0000'>不支持：如雪原、隧道等视觉特征/光照太差的场景、精度要求极高的严肃工业场景海拔30米向上飞行场景。</font>
 > - <font color='#FF0000'>目前SFM重建在无纹理区域、走廊白墙场景容易失败。</font>
 > - <font color='#FF0000'>目前重定位在平坦、开阔、近处特征少的场景重定位精度会降低，系统仍然可以依靠GNSS、RTK以及视觉定位正常工作。</font>
-> - <font color='#FF0000'>重定位并未与GNSS、RTK的信息做耦合，之后有计划做适配，请用户敬请期待。</font>
+
 
 
 
@@ -118,9 +118,57 @@ root@PR-VIO:/home/my_relocation# tree
             `-- points3D.bin
 ```
 至此，使用viobot建图的步骤都已完成，下面开始使用建图的结果来跑重定位。
+
+## RTK融合建图
+
+> 注意：此部分只适用于想要将sfm建图+rtk定位结果融合到一起提供更准确的建图效果的情况，一般直接使用视觉的SFM建图就能满足建图精度以及重定位效果。
+> 目前此功能并未完全发布，还在稳定性测试中。
+
+**流程：**
+1. 按照手册中[《融合位姿/视觉融合RTK》](https://baton-doc.readthedocs.io/en/viobot2/%E8%9E%8D%E5%90%88%E4%BD%8D%E5%A7%BF/%E8%A7%86%E8%A7%89%E8%9E%8D%E5%90%88%E5%8D%95%E5%A4%A9%E7%BA%BFRTK.html#rtk)的步骤先将rtk的驱动、gnss配置项修改好；
+2. gnss配置项、/rtk_nmea话题可发布之后，检查`/baton/rtk`是否可以发布；
+3. 启动最新版上位机[roboBaton V20251031](https://www.hessian-matrix.com/wp-content/uploads/2025/11/Viobot_customer_Setup.zip),设置-loop-勾选开启建图/重定位-修改重定位文件路径-勾选记录建图信息
+4. 勾选记录建图信息之后启动stereo3，对着建图区域运行，采集完建图区域的数据之后，上位机上停止算法；
+5. 最后是上位机上点开始建图
+
+第二步中一定要先检查rtk是否可以固定解，可以通过echo `/baton/rtk`话题来判定是否固定解：
+``` shell
+header:
+  stamp:
+    sec: 1759141703
+    nanosec: 305476864
+  frame_id: rtk
+status:
+  status: 2     #2 即为固定解，其他状态不是固定解
+  service: 0
+latitude: 22.81607205183333
+longitude: 113.49725767266666
+altitude: -1.7479999999999998
+position_covariance:
+- 0.054450000000000005
+- 0.0
+- 0.0
+- 0.0
+- 0.054450000000000005
+- 0.0
+- 0.0
+- 0.0
+- 0.054450000000000005
+position_covariance_type: 48
+```
+
+其中第三步中的详细步骤如下：
+![alt text](image/image_set_map_config.png)
+勾选之后运行再运行stereo3，程序会自动启动一个名为`extract_sfm`的节点收集建图数据，注意：停止stereo3之后loop配置页中的**记录建图信息**会自动取消勾选。
+
+完成建图数据采集后，程序会在第三步设置的路径中保存很多文件，其中一个文件名为`ecef_coordinates.txt`，确保其中有内容，否则RTk建图仍为视觉建图。
+
+完成建图之后的使用方式也和重定位的内容一致。
+
 ## 运行重定位
-接下来就是用前面已经建好的图运行重定位功能，首选还是在UI上的设置 loop一栏勾选加载地图选项再保存，然后运行stereo3算法。
+接下来就是用前面已经建好的图运行重定位功能，首选还是在UI上的设置 loop一栏勾选**开启回环/重定位**以及**加载地图**选项再保存，然后运行stereo3算法。
 ![](image/image_start_relocation.png)
+![alt text](image.png)
 
 之后在Viobot-UI上位机上会输出一条融合后的轨迹，可以尝试让设备多次运行到同一个地方查看轨迹的变化。以下是在室内重复多次运行的一个结果，可以看到有重定位的加入后长时间工作里程计更准确：
 ![](image/image_hmsfm_result.png)

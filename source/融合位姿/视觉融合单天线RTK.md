@@ -1,4 +1,4 @@
-# 1. 视觉融合RTK
+# 视觉融合RTK
 
 Viobot2默认标配GNSS模块， 算法默认为GVIO，在没有接入GNSS数据时会退化为VIO模式。支持外部接入RTK模块，RTK数据接入时，GNSS数据会自动摒弃掉，算法融合RTK数据输出更精准位置结果。
 viobot2使用RTK模块的大致步骤如下：
@@ -10,7 +10,7 @@ viobot2使用RTK模块的大致步骤如下：
 4. [RTK外参标定](#5标定rtk与左目外参)
 5. [开启RTK融合算法](#四rtk融合)
 
-## 1.1. 一.硬件准备
+## 一.硬件准备
 
 Viobot2不配备RTK模块，需要用到的用户可以自行去选购RTK模块。RTK要求：能输出10Hz+ 的NMEA-0183协议标准的NMEA（GGA）固定解结果以及**RMC**字串（提供UTC时间、日期信息），一般的RTK模块都能输出这两种语句。
 
@@ -20,7 +20,7 @@ Viobot2不配备RTK模块，需要用到的用户可以自行去选购RTK模块�
 
 所以数据流的简图如下：
 ![](./image/image_rtk_arrow_pic.png)
-## 1.2. 二.模块驱动
+## 二.模块驱动
 
 黑森开源了一个RTK驱动仓库，可以直接使用：[Hessian-matrix/HM\_RTK\_driver](https://github.com/Hessian-matrix/HM_RTK_driver "Hessian-matrix/HM_RTK_driver")
 
@@ -51,7 +51,7 @@ sudo make install -j4
 ```
 
 
-### 1.2.1. 1.硬件连接
+### 2.1 硬件连接
 
 RTK模块通过串口连接到Viobot2，如果是接的是USB转串口，需要自己去查一下接进来的串口号`ls /dev/ttyUSB*`
 
@@ -67,7 +67,7 @@ RTK模块通过串口连接到Viobot2，如果是接的是USB转串口，需要�
 
 关于硬件PPS：我们用户版本都是带GNSS板的，上面天线接收了卫星时间，可以进行PPS时间同步。
 
-### 1.2.2. 2.测试驱动
+### 2.2 测试驱动
 
 ```bash 
 cd HM_RTK_Driver_ws
@@ -88,9 +88,9 @@ rostopic echo /rtk_nmea
 
 ![](image/image_7kbwcmRHKh.png)
 
-## 1.3. 三.模块数据接入和外参标定
+## 三.模块数据接入和外参标定
 
-### 1.3.1. 1.确认设备当前软件版本
+### 3.1 确认设备当前软件版本
 
 RTK功能需要上位机更新到20250314机之后的版本，同步更新设备`software版本`至20250318及之后的版本。设备使用前最好先到官网同步最新的固件，新版本会修复已知问题。官网地址：https://www.hessian-matrix.com
 
@@ -98,7 +98,7 @@ RTK功能需要上位机更新到20250314机之后的版本，同步更新设备
 
 ![](image/image_nuVuTpTLdl.png)
 
-### 1.3.2. 2.Viobot2开启RTK启用接口
+### 3.2 Viobot2开启RTK启用接口
 
 在上位机连接Viobot2后点击设置，弹出的页面选到gnss页面，其中的两个勾选GNSS和RTK是单选的，勾选RTK后，会取消勾选GNSS，点击确定。
 
@@ -106,7 +106,7 @@ RTK功能需要上位机更新到20250314机之后的版本，同步更新设备
 
 &#x20;   关闭设置页面，然后点击设备重启按键，重启Viobot2。
 
-### 1.3.3. 3.开启RTK驱动程序并把数据接入Viobot2
+### 3.3 开启RTK驱动程序并把数据接入Viobot2
 
 编译好RTK驱动并且确认好模块的连接之后,启动RTK驱动
 
@@ -119,7 +119,7 @@ RTK驱动会把RTK的数据发送到Viobot2的程序里去解析出来，rostopi
 
 ![](image/image_tJUbEI3He7.png)
 
-### 1.3.4. 4.确认RTK当前是固定解
+### 3.4 确认RTK当前是固定解
 
 ```bash
 rostopic echo /baton/rtk
@@ -127,7 +127,7 @@ rostopic echo /baton/rtk
 
 如果打印出来的status = 2,RTK当前有固定解。
 
-### 1.3.5. 5.标定RTK与左目外参
+### 3.5 标定RTK与左目外参
 
 上面几步确认数据正常后，打开hm_rtk.launch,设置好Y轴的初始设定值
 
@@ -149,7 +149,7 @@ roslaunch hm_rtk calib_rtk_slam.launch
 
 ![rtk_result](image/rtk_result.png)
 
-## 1.4. 四.RTK融合
+## 四.RTK融合
 
 把标定结果重新写到HM\_RTK.launch。
 
@@ -171,7 +171,7 @@ roslaunch hm_rtk calib_rtk_slam.launch
 /baton/stereo3/lla_odom     #融合后的odometry，XYZ是经纬高（单位:度、米），朝向是在东北天坐标系下
 ```
 
-## 1.5. 五.关于时间同步
+## 五.关于时间同步
 
 现在RTK/GNSS有两种时间同步方式：
 一是前面说到的在接入GNSS天线再使用RTK算法时设备已经通过设备板载的GNSS模块接入了PPS时间同步；
