@@ -6,7 +6,7 @@
 > - HM Localization + 组合导航，结合HM Perception实现中低速自由探索；
 
 **注意：**
-> - <font color='#FF0000'>目前viobot2系统版本为202511xx及之后的版本建图需要最新版本的上位机UI配合使用,请参考本章《SFM重定位新版本UI使用》，11月之前的算法版本不受影响</font>
+> - <font color='#FF0000'>目前viobot2系统版本为202511xx及之后的版本建图需要最新版本的上位机UI配合使用，如发现上位机机的页面不一致需要更新到官网的最新版本之后再配合本节使用</font>
 > - <font color='#FF0000'>不支持：如雪原、隧道等视觉特征/光照太差的场景、精度要求极高的严肃工业场景海拔30米向上飞行场景。</font>
 > - <font color='#FF0000'>目前SFM重建在无纹理区域、走廊白墙场景容易失败。</font>
 > - <font color='#FF0000'>目前重定位在平坦、开阔、近处特征少的场景重定位精度会降低，系统仍然可以依靠GNSS、RTK以及视觉定位正常工作。</font>
@@ -36,61 +36,56 @@
 
 ## viobot设置与采集数据
 
-viobot-ui连接viobot2，点击设置，找到loop一栏：
-- 勾选“开启回环/重定位”，重定位文件夹可以保持默认路径；
-- **“加载地图”不要勾选**，否则无法采集数据；
-- mask路径就是当viobot镜头画面中有固定物体的遮挡时设置区域屏蔽作用的，如安装到小车上可以通过设置mask屏蔽画面中的车体部分对算法的影响，如没有画面遮挡保持为空即可；
+viobot-ui连接viobot2，点击设置，找到loop一栏,主要配置以下两个配置： 
+  - 1.1 上位机配置保存建图路径：
+  连接上位机后，打开`设置`页面，点开`loop`选项卡，勾选`开启回环/重定位`，可以配置重定位文件路径，这个路径是在viobot2里面的路径，用于存放开启算法后保存下来的建图所需要文件，然后将开启 `回环/重定位`勾选去掉，再勾选`记录建图信息`，点击下面的确定，然后关闭选项卡。
+
+  - 1.2 开启算法记录建图信息:
+  开启stereo3算法，算法会自动将建图所需信息文件存放到所配置的路径下。开着算法带着viobot2循着需要建图的环境跑一圈，然后停止算法，文件就自动保存好了。
+  ![alt text](image/set_sfm_config_image.png)
+  > 注意：如有UI界面不同、以及按此页《v1031之前UI建图》的操作进行。或者将viobot2程序以及UI升级到最新版本
 
 以上设置完成后点击确定，之后再启动stereo3算法，开始移动viobot2去采集数据，注意过程中画面视角不要变化过快避免之后的重建的结果不理想。
 
-如果不通过UI配置采集数据的方法：
-按照以下配置`/root/Baton/install/share/baton/config/sys.yaml`,修改`pose_graph_save_path`的路径并记录下来，之后的建图的结果将保存到这里；
+如果不通过UI配置采集数据、运行重定位的方法：
+1. **采集数据**：`record_flag: true  `：然后启动stereo3，程序将自动采集数据，停止stereo3停止数据采集之后此项自动置为false，防止下次启动算法时启动数据采集功能。
+2. **启动重定位**：设置`relocalization: true`，启动stereo3时程序会读取到此配置启动重定位功能。
+3. **建图保存路径**：按照以下配置`/root/Baton/install/share/baton/config/sys.yaml`,修改`pose_graph_save_path`的路径并记录下来，之后的建图的结果将保存到这里；
 ~~~ yaml
 print_queue: false
 use_imu: 2
-dt_threshold: 6
 gnss_select: 2
 load_previous_pose_graph: false
-add_keyframe_mode: 1        #需要开启建图数据记录此项为1
-pose_graph_save_path: /home/user/pose_graph/    #保存pose_graph的路径
+add_keyframe_mode: 0
+pose_graph_save_path: /home/user/pose_graph   #保存pose_graph的路径,可自行修改
 gnss_T_imu:
   data:
     - 0
     - 0
     - 0
 relocalization: false   #建图完后有了地图此项为true就是开启了重定位
-mask_path: ""
+mask_path: /root/Baton/install/share/baton/config/s3_fisheye_mask.png #画面有遮挡时设置双目mask的路径
 only_sfm_data: true
+record_flag: true    #需要开启建图数据记录此项为true,然后启动stereo3
+zupt_acc_var: -1
+zupt_gyr_var: -1
+zupt_average_parallax: 0
 ~~~
 
+需要建图的区域扫描完后点击**停止**stereo3，等待几秒即可保存完整数据,之后进入下一步离线建图。
 
-![](image/image_viobot_setting.png)
-
-需要建图的区域扫描完后点击保存BOW，等待几秒即可保存完整数据,之后进入下一步离线建图。
-
-![](image/image_save_bow.png)
-
-> Tips: 也可通过ros的话题控制保存bow：
-~~~ shell
-# ros1: 
-rostopic pub -1 /baton/loop/keyframe_action/goal loop_action/KeyFrameHandleActionGoal  "goal: {function: 2}" #function=2即保存bow
-
-
-# ros2
-ros2: ros2 action send_goal /baton/loop/keyframe_action loop_action/KeyFrameHandle "{function: 2}"  #function=2即保存bow
-~~~
 
 ## 离线建图
 
 前面已经完成了建图的数据采集、基础配置项，建图前建议按照上一节检查一下基础配置项，之后点击“开始建图”之后出现建图的进度条，整个建图的用时视建图的环境大小而增大，进图条结束之后可以在输出路径下的HM_SFM目录下找到重建的结果了：
-前面已经完成了建图的数据采集、基础配置项，建图前建议按照上一节检查一下基础配置项，之后点击“开始建图”之后出现建图的进度条，整个建图的用时视建图的环境大小而增大，进图条结束之后可以在输出路径下的HM_SFM目录下找到重建的结果了：
+前面已经完成了建图的数据采集、基础配置项，建图前建议按照上一节检查一下基础配置项，之后点击“开始建图”之后出现建图的进度条，整个建图的用时视建图的环境大小而增大，进图条结束之后可以在输出路径下的HM_SFM目录下、或者上位机-查看地图即可看到重建的结果了：
 
 > Tips:此处运行建图也可不通过UI进行建图，ssh登录viobot2通过运行mapping节点进行建图，注意之前配置的路径以及保存的bow文件夹是否存在内容：
 ~~~ shell
 # ros1:
 rosrun baton mapping
 ~~~
-
+ros2的指令目前还没有
 <!-- #ros2的指令目前还没有 ros2:
 ros2 run baton mapping -->
 
@@ -117,6 +112,8 @@ root@PR-VIO:/home/my_relocation# tree
             |-- images.bin
             `-- points3D.bin
 ```
+下图是通过UI查看建图的结果，完成建图之后，不要清除轨迹，可以结合slam的轨迹以及重建的路径、关键帧相机位姿点、点云的数量来判断重建的质量：
+![alt text](image/image_watch_sfm_map.png)
 至此，使用viobot建图的步骤都已完成，下面开始使用建图的结果来跑重定位。
 
 ## RTK融合建图
@@ -127,7 +124,7 @@ root@PR-VIO:/home/my_relocation# tree
 **流程：**
 1. 按照手册中[《融合位姿/视觉融合RTK》](https://baton-doc.readthedocs.io/en/viobot2/%E8%9E%8D%E5%90%88%E4%BD%8D%E5%A7%BF/%E8%A7%86%E8%A7%89%E8%9E%8D%E5%90%88%E5%8D%95%E5%A4%A9%E7%BA%BFRTK.html#rtk)的步骤先将rtk的驱动、gnss配置项修改好；
 2. gnss配置项、/rtk_nmea话题可发布之后，检查`/baton/rtk`是否可以发布；
-3. 启动最新版上位机[roboBaton V20251031](https://www.hessian-matrix.com/wp-content/uploads/2025/11/Viobot_customer_Setup.zip),设置-loop-勾选开启建图/重定位-修改重定位文件路径-勾选记录建图信息
+3. 启动最新版上位机[roboBaton V20251031](https://www.hessian-matrix.com/wp-content/uploads/2025/11/Viobot_customer_Setup.zip),设置-loop-勾选开启回环/重定位-修改重定位文件路径-取消勾选开启回环/重定位-勾选记录建图信息
 4. 勾选记录建图信息之后启动stereo3，对着建图区域运行，采集完建图区域的数据之后，上位机上停止算法；
 5. 最后是上位机上点开始建图
 
@@ -158,7 +155,7 @@ position_covariance_type: 48
 ```
 
 其中第三步中的详细步骤如下：
-![alt text](image/image_set_map_config.png)
+![alt text](image/set_sfm_config_image.png)
 勾选之后运行再运行stereo3，程序会自动启动一个名为`extract_sfm`的节点收集建图数据，注意：停止stereo3之后loop配置页中的**记录建图信息**会自动取消勾选。
 
 完成建图数据采集后，程序会在第三步设置的路径中保存很多文件，其中一个文件名为`ecef_coordinates.txt`，确保其中有内容，否则RTk建图仍为视觉建图。
@@ -167,8 +164,9 @@ position_covariance_type: 48
 
 ## 运行重定位
 接下来就是用前面已经建好的图运行重定位功能，首选还是在UI上的设置 loop一栏勾选**开启回环/重定位**以及**加载地图**选项再保存，然后运行stereo3算法。
+
+不通过上位机运行重定位的方式可以修改`/root/Baton/install/share/baton/config/sys.yaml`的`relocalization`选项为true，之后在手动开启stereo3，`sys.yaml`的路径ros1和ros2的略有不同，可以进入到~/baton下查找。
 ![](image/image_start_relocation.png)
-![alt text](image.png)
 
 之后在Viobot-UI上位机上会输出一条融合后的轨迹，可以尝试让设备多次运行到同一个地方查看轨迹的变化。以下是在室内重复多次运行的一个结果，可以看到有重定位的加入后长时间工作里程计更准确：
 ![](image/image_hmsfm_result.png)
@@ -178,27 +176,8 @@ position_covariance_type: 48
 触发重定位之后会发布一个`geometry_msgs/PoseStamped`类型的`/baton/stereo3/odom_relo`话题,需要根据是否接接收到此话题判断重定位是否成功，此话题发布的是建图坐标系下的重定位位姿。
 
 
-> 注意：融合后的轨迹是在slam坐标系下的，而非地图坐标系，后续会拓展增加融合后地图坐标系和重定位触发信号。
+> 注意：融合后的轨迹是发布到`/baton/stereo3/fusion_odom`里面的，此话题是融合了GNSS\RTK\relocalization的位姿作为输出，有哪些数据源输入就融合什么数据源，全都有就全都融合。
 
-## SFM重定位新版本UI使用
-> 本节适用202511xx及之后的算法版本使用教程,上位机UI的版本需要20251031版本，最新ui下载页面[黑森矩阵下载中心](https://www.hessian-matrix.com/%e4%b8%8b%e8%bd%bd%e4%b8%ad%e5%bf%83/)
-
-
-1. 建图使用
-   
-  1.1 上位机配置保存建图路径：
-  连接上位机后，打开`设置`页面，点开`loop`选项卡，勾选`开启回环/重定位`，可以配置重定位文件路径，这个路径是在viobot2里面的路径，用于存放开启算法后保存下来的建图所需要文件，然后将开启 `回环/重定位`勾选去掉，再勾选`记录建图信息`，点击下面的确定，然后关闭选项卡。
-
-![alt text](image/set_sfm_config_image.png)
-  1.2 开启算法记录建图信息:
-  开启stereo3算法，算法会自动将建图所需信息文件存放到所配置的路径下。开着算法带着viobot2循着需要建图的环境跑一圈，然后停止算法，文件就自动保存好了。
-
-2. 建图：点击`开始建图`按钮，等待上位机的进图条跳转到满格，然后关闭建图弹窗。
-  
-3. 开启重定位：点开设置，`loop`选项卡，勾选`开启回环/重定位`和`加载地图`两个勾，确认下面的`重定位文件路径`正确，点击确定，关闭弹窗。
-
-点击启动`stereo3`算法，算法在已经建好图的环境下运行就会自己触发重定位，将当前的位姿拉回到地图坐标系下了。
-![alt text](image/open_new_relocation_image.png)
 
 
 ----------------------------------------------

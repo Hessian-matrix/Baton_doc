@@ -164,6 +164,8 @@ roslaunch hm_rtk calib_rtk_slam.launch
 
 算法接收到RTK数据解析，然后可以给出以下新的RTK相关话题数据。
 
+> **RTK融合后的轨迹是发布到`/baton/stereo3/fusion_odom`里面的，此话题是融合了GNSS\RTK\relocalization的位姿作为输出，有哪些数据源输入就融合什么数据源，全都有就全都融合。**
+
 ```bash 
 /baton/stereo3/fusion_odom  #融合后的odometry，在SLAM局部坐标系下
 /baton/stereo3/fusion_path  #融合后的历史轨迹，在SLAM局部坐标系下
