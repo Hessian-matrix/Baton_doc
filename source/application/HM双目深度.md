@@ -2,8 +2,8 @@
 ## 简介
 双目深度估计（Stereo Depth）是一种基于双目立体视觉原理的被动式三维感知技术，通过模拟人类双眼的视差原理，利用两个空间位置分离的相机采集同一场景中的图像，再用深度学习通过端到端的学习直接输出深度图。广泛应用于自主小车导航、避障。
 
-![](image/stereo_depth.gif)
-<center style="font-size:14px;color:#C0C0C0;">图1.viobot室内双目深度效果</center> 
+<!-- ![](image/stereo_depth.gif) -->
+<!-- <center style="font-size:14px;color:#C0C0C0;">图1.viobot室内双目深度效果</center>  -->
 
 双目深度估计是一项非常吃算力的任务，在3588上实现实时推理需要NPU进行量化加速才能呈现Viobot2所展示的效果。
 

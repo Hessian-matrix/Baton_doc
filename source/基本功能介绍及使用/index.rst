@@ -3,21 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-基本功能介绍及使用
+Basic Features and Usage
 ======================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   基本功能  
-   数据说明
-   算法控制
-   重定位使用
-   双目深度
-   GNSS模块使用
-   数据包录制
-   NTP时间同步
-   工程应用上的相关配置
-   版本更新
+   basic_features
+   data_description
+   algorithm_control
+   relocalization
+   stereo_depth
+   gnss_module
+   data_recording
+   ntp_time_sync
+   engineering_config
+   release_notes
   

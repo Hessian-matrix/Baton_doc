@@ -3,14 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-问题解答
+FAQ
 ======================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   常见问题
+   common_issues
    
-
 

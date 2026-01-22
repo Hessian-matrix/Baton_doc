@@ -1,5 +1,7 @@
 # Viobot2简介
+
 ## 一、产品概述
+
 Viobot2是一款应用于机器人的前端定位模块，通过双目摄像头和自带的imu采集环境以及自身数据，计算并输出设备自身的当前位姿。
 
 Viobot2自带的stereo3算法采用双目直接法耦合imu的方式，计算自身位姿,自带回环功能，能够再重复作业场景自动实现重定位功能。可以通过耦合自带的GNSS模块的数据，实现更稳定的定位。
@@ -14,11 +16,8 @@ Viobot2自带系统默认为Ubuntu20.04 + ROS noetic （可选配 Ubuntu22.04 +R
 
 建议采用无图形化的开放和使用方式，用户可以使用Mobaxterm、xshell等终端工具用ssh登录Viobot2,登录使用可以参考本文档的[开机指南章节](https://baton-doc.readthedocs.io/en/viobot2/%E5%BC%80%E6%9C%BA%E6%8C%87%E5%8D%97.html#)
 
-
-
 软件包和demo下载地址：Hessian-matrix ([github.com](http://github.com "github.com")) 或者Hessian\_matrix (hessian\_matrix) - [Gitee.com](http://Gitee.com "Gitee.com")
 开源的软件和Demo：
-
 
 ## 二、规格参数：
 
@@ -35,4 +34,5 @@ Viobot2自带系统默认为Ubuntu20.04 + ROS noetic （可选配 Ubuntu22.04 +R
 ![](image/image_-xnOwN_BYF.png)
 
 ## 五、硬件接口说明
+
 ![](image/image_bord_interface.png)

@@ -3,15 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-融合位姿
+Pose Fusion
 ======================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   视觉融合单天线RTK
-   视觉融合双天线RTK
+   visual_fusion_single_antenna_rtk
+   visual_fusion_dual_antenna_rtk
    
-
 

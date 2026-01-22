@@ -3,13 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-通用导航例程
+Navigation Examples
 ======================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   ROS MoveBase
-   ROS2 Navigation2
+   ros_move_base
+   ros2_navigation2
    

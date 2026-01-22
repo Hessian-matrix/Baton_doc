@@ -3,16 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-ROS多机通讯(ROS1 ROS2)
-======================================
+ROS Multi-machine Communication (ROS1 / ROS2)
+=============================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   ROS主从机配置
-   ROS多主机配置
-   ROS2多机通讯
+   ros_master_slave_setup
+   ros_multi_machine_setup
+   ros2_multi_machine_communication
    
-
-

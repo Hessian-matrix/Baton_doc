@@ -3,11 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-资料下载
+Downloads
 ======================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   代码仓库和链接汇总
+   repositories_and_links

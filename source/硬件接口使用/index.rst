@@ -3,17 +3,17 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-硬件接口使用
+Hardware Interfaces
 ======================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   网卡挂载与WiFi连接  
-   TF卡挂载
-   串口通信
-   I2C通信
-   CAN通信
+   network_and_wifi
+   tf_card_mount
+   serial_communication
+   i2c_communication
+   can_communication
+   device_adb
    
-

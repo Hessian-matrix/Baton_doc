@@ -3,13 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-SDK使用教程
+SDK Tutorials
 ======================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   SDK通信协议
-   SDK_Demo
-
+   sdk_protocol
+   sdk_demo_en
