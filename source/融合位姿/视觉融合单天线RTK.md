@@ -12,21 +12,33 @@ viobot2使用RTK模块的大致步骤如下：
 
 ## 一.硬件准备
 
+定制版viobot2带RTK的版本已经在硬件上接入了移远的LG290P模组，并且已经用将RTK模块的串口接入到Viobot2上的`/dev/ttyS0`串口上，RTK的驱动也已经预装好了,需要到对应的hm_rtk.launch中填入cors账号信息即可启动RTK，一般就在/root目录下的HM_RTK目录下，同步的是[Hessian-matrix/HM_RTK_driver](https://github.com/Hessian-matrix/HM_RTK_driver "Hessian-matrix/HM_RTK_driver")的驱动。到手按ros版本运行对应的指令即可启动RTK驱动，stereo3算法默认也配置了融合RTK：
+
+```
+#ros1
+source ~/HM_RTK/devel/setup.bash
+roslaunch hm_rtk hm_rtk.launch
+#ros2：
+source ~/HM_RTK/devel/setup.bash
+ros2 launch hm_rtk_ros2.launch.py
+```
+
+
+
 Viobot2不配备RTK模块，需要用到的用户可以自行去选购RTK模块。RTK要求：能输出10Hz+ 的NMEA-0183协议标准的NMEA（GGA）固定解结果以及**RMC**字串（提供UTC时间、日期信息），一般的RTK模块都能输出这两种语句。
-
-
 
 使用外部的GGA字符串通过ros话题`/rtk_nmea`发布给viobot2订阅使用（前提：viobot2配置RTK模式:UI上->设置->gnss栏->勾选RTK）。
 
 所以数据流的简图如下：
 ![](./image/image_rtk_arrow_pic.png)
+
 ## 二.模块驱动
 
 黑森开源了一个RTK驱动仓库，可以直接使用：[Hessian-matrix/HM\_RTK\_driver](https://github.com/Hessian-matrix/HM_RTK_driver "Hessian-matrix/HM_RTK_driver")
 
 其中依赖ceres\_solver库，需要自己下载一下，可以使用我们gitee上面打包好的压缩包，直接编译安装。
 
-```bash 
+```bash
 git clone https://gitee.com/hessian_matrix/ceres_slver-2.1.0.git
 cd ceres_slver-2.1.0
 unzip ceres-solver-2.1.0.zip
@@ -36,10 +48,9 @@ cmake ..
 sudo make install -j4
 ```
 
-
 编译驱动
 
-```bash 
+```bash
     mkdir -p HM_RTK_Driver_ws/src
     cd HM_RTK_Driver_ws/src
     git clone https://github.com/Hessian-matrix/HM_RTK_driver
@@ -49,7 +60,6 @@ sudo make install -j4
     cd ../../
     catkin_make
 ```
-
 
 ### 2.1 硬件连接
 
@@ -69,22 +79,19 @@ RTK模块通过串口连接到Viobot2，如果是接的是USB转串口，需要�
 
 ### 2.2 测试驱动
 
-```bash 
+```bash
 cd HM_RTK_Driver_ws
 source ./devel/setup.bash
 roslaunch hm_rtk hm_rtk.launch
-
 ```
-
 
 正常启动并且通过rostopic echo 查看到`/rtk_nmea`消息正常即可。
 
 ![](image/image_1OoEtr01io.png)
 
-```bash 
+```bash
 rostopic echo /rtk_nmea
 ```
-
 
 ![](image/image_7kbwcmRHKh.png)
 
@@ -110,10 +117,9 @@ RTK功能需要上位机更新到20250314机之后的版本，同步更新设备
 
 编译好RTK驱动并且确认好模块的连接之后,启动RTK驱动
 
-```bash 
+```bash
 roslaunch hm_rtk hm_rtk.launch
 ```
-
 
 RTK驱动会把RTK的数据发送到Viobot2的程序里去解析出来，rostopic echo 可以看到`/baton/rtk`消息正常即可。
 
@@ -141,7 +147,7 @@ roslaunch hm_rtk hm_rtk.launch
 
 启动stereo3算法，并且开启RTK驱动里面的标定程序
 
-```bash 
+```bash
 roslaunch hm_rtk calib_rtk_slam.launch
 ```
 
@@ -153,12 +159,11 @@ roslaunch hm_rtk calib_rtk_slam.launch
 
 把标定结果重新写到HM\_RTK.launch。
 
-```xml 
+```xml
 <arg name="ex_rtk_slam_x" default="-0.026357"/>  
 <arg name="ex_rtk_slam_y" default="-0.05"/>
 <arg name="ex_rtk_slam_z" default="-0.283098"/>
 ```
-
 
 然后重新把RTK驱动开起来，开启stereo3算法，运动过后等到RTK有固定解后，就会有RTK的融合结果了。
 
@@ -166,7 +171,7 @@ roslaunch hm_rtk calib_rtk_slam.launch
 
 > **RTK融合后的轨迹是发布到`/baton/stereo3/fusion_odom`里面的，此话题是融合了GNSS\RTK\relocalization的位姿作为输出，有哪些数据源输入就融合什么数据源，全都有就全都融合。**
 
-```bash 
+```bash
 /baton/stereo3/fusion_odom  #融合后的odometry，在SLAM局部坐标系下
 /baton/stereo3/fusion_path  #融合后的历史轨迹，在SLAM局部坐标系下
 /baton/stereo3/rtk_path     #RTK历史轨迹，在SLAM局部坐标系下
