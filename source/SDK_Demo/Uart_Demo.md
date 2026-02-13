@@ -16,10 +16,10 @@ Demo代码地址：[Hessian-matrix/mini_serial_demo: serial demo for baton_mini]
 
 单帧共34byte
 
-| 帧头      | 控制位                 | 保留位 | 和校验位                       | 帧尾      |
-| --------- | ---------------------- | ------ | ------------------------------ | --------- |
-| 0x67 0x28 | 控制系统运行状态的指令 |        | 累加和（不包含帧头帧尾校验位） | 0x09 0x0d |
-| 2byte     | 1byte                  | 28byte | 1byte                          | 2byte     |
+| 帧头        | 控制位         | algo_type           | 保留位      | 和校验位            | 帧尾        |
+| --------- | ----------- | ------------------- | -------- | --------------- | --------- |
+| 0x67 0x28 | 控制系统运行状态的指令 | 切换stereo3/stereo4算法 | 保留位，保持全0 | 累加和（不包含帧头帧尾校验位） | 0x09 0x0d |
+| 2byte     | 1byte       | 1byte               | 27byte   | 1byte           | 2byte     |
 
 **控制位：**
 
@@ -27,7 +27,13 @@ Demo代码地址：[Hessian-matrix/mini_serial_demo: serial demo for baton_mini]
 - 0x02 停止算法程序
 - 0x03 重启算法程序
 
-**校验和：** 计算校验和时从帧头开始计算，一直累加到保留位的最后一位为止，一共要计算29bit
+**algo_type**:
+
+- 0x00: 选择stereo3算法、
+
+- 0x01: 选择stereo4算法 
+
+**校验和：** 计算校验和时从第3byte的控制位开始计算，一直累加到保留位的最后一位为止，一共要计算29bit
 
 ```c++
 unsigned char check = 0;
@@ -36,14 +42,56 @@ for(int i = 2;i < 31;i++){
 }
 ```
 
+以下是启动stereo3/stereo4的完整十六进制数据，可在串口工具中以十六进制发送：
+
+**stereo3**
+
+- 启动：
+  
+  ```
+  67 28 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 09 0D
+  ```
+
+- 停止：
+  
+  ```
+  67 28 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02 09 0D
+  ```
+
+- 重启：
+  
+  ```
+  67 28 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 03 09 0D
+  ```
+
+**stereo4**
+
+- 启动：
+  
+  ```
+  67 28 01 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02 09 0D
+  ```
+
+- 停止：
+  
+  ```
+  67 28 02 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 03 09 0D
+  ```
+
+- 重启：
+  
+  ```
+  67 28 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 04 09 0D
+  ```
+
 ### 2.姿态输出帧
 
 单帧共61byte
 
-| 帧头      | frame_id | pose                                     | 四元数                            | 线速度                            | 角速度                            | 校验和                                               | 帧尾      |
-| --------- | :------: | ---------------------------------------- | --------------------------------- | --------------------------------- | --------------------------------- | ---------------------------------------------------- | --------- |
-| 0x66 0x27 |   int    | pose的x、y、z三维坐标输出，每个分量4byte | x、y、z、w四个分量，每个分量4byte | lx、ly、lz三个分量，每个分量4byte | ax、ay、az三个分量，每个分量4byte | 数据部分（不包含帧头帧尾校验位部分）的所有数据累加和 | 0x08 0x0a |
-| 2byte     |  4byte   | 12byte                                   | 16byte                            | 12byte                            | 12byte                            | 1byte                                                | 2byte     |
+| 帧头        | frame_id | pose                       | 四元数                   | 线速度                    | 角速度                    | 校验和                        | 帧尾        |
+| --------- |:--------:| -------------------------- | --------------------- | ---------------------- | ---------------------- | -------------------------- | --------- |
+| 0x66 0x27 | int      | pose的x、y、z三维坐标输出，每个分量4byte | x、y、z、w四个分量，每个分量4byte | lx、ly、lz三个分量，每个分量4byte | ax、ay、az三个分量，每个分量4byte | 数据部分（不包含帧头帧尾校验位部分）的所有数据累加和 | 0x08 0x0a |
+| 2byte     | 4byte    | 12byte                     | 16byte                | 12byte                 | 12byte                 | 1byte                      | 2byte     |
 
 **数据位：** 数据位传输的是结构体通过内存拷贝到char数组上的方式传输，实际上就是float型数据在内存中存放的数据位，同理解析时也是通过memcpy进行内存拷贝解码。
 
@@ -73,126 +121,3 @@ git clone https://github.com/Hessian-matrix/mini_serial_demo.git
 sudo apt install  ros-noetic-serial
 git clone https://github.com/wjwwood/serial.git
 ```
-
-### 1.发送指令代码
-
-```c++
-enum algo_state{
-    algo_enable = 0x01,     //启动
-    algo_disable = 0x02,    //停止
-    algo_restart = 0x03,    //重置
-    algo_none   = 0x00,
-};
-
-/// @brief 发送控制指令
-/// @param t algo_state 控制指令
-void send_command(const algo_state t){   
-    memset(send_buffer,0,LSEND_LEN);
-    send_buffer[0] = 0x67;
-    send_buffer[1] = 0x28;
-    send_buffer[2] = t;
-    char check_sum = 0;
-    for(int i = 2;i < LS_CHECK;i++){
-        check_sum += send_buffer[i];
-    }
-    send_buffer[LS_CHECK] = check_sum;
-    send_buffer[LSEND_LEN - 2] = 0x09;
-    send_buffer[LSEND_LEN - 1] = 0x0d;
-    serial_port.write(send_buffer,LSEND_LEN);    //已发送
-    // std::cout << "send is" << std::endl;
-    // for(int i = 0;i < LSEND_LEN;i++) {
-    //     printf("0x%02x ",send_buffer[i]);
-    // }
-}
-```
-
-### 2.解析串口数据
-
-```c++
-//解析数据包
-void unpack_uart(odom_t& odom,int& frame_id){
-    // std::cout << "receive:" << std::endl;
-    // for(int i = 0;i < LREV_LEN;i++)  {
-    //     printf("0x%02x ",receive_buffer[i]);
-    // }
-    // std::cout << std::endl;
-
-    if(receive_buffer[0] == RHEAD_1 && receive_buffer[1] == RHEAD_2 && receive_buffer[LREV_LEN - 2] == RTILE_1 && receive_buffer[LREV_LEN - 1] == RTILE_2 ){
-        char check=0;
-        //61-3
-        for(int i = 2;i < LR_CHECK;i++){
-            check += receive_buffer[i];
-        }
-        if(check == receive_buffer[LR_CHECK]){
-            // std::cout<<"======unpack ok======"<<std::endl;
-            memcpy(&frame_id,receive_buffer + 2,sizeof(frame_id));
-            memcpy(&odom.pose,receive_buffer + 6,sizeof(odom.pose));
-            memcpy(&odom.speed,receive_buffer + 6 + sizeof(odom.pose),sizeof(odom.speed));
-            // printf("frame_id = %d\n",frame_id);
-            // //px,py,pz,qx,qy,qz,qw;
-            // printf("pose [%f,%f,%f,%f,%f,%f,%f]\n",odom.pose.px,odom.pose.py,odom.pose.pz,odom.pose.qx,odom.pose.qy,odom.pose.qz,odom.pose.qw);
-            // //lx,ly,lz,ax,ay,az;
-            // printf("speed [%f,%f,%f,%f,%f,%f]\n",odom.speed.lx,odom.speed.ly,odom.speed.lz,odom.speed.ax,odom.speed.ay,odom.speed.az);
-        }
-        else{
-            std::cout<<"check err"<<std::endl;
-            printf("want is %x,but receive:%x\n",check,receive_buffer[LR_CHECK]);
-        }
-    }
-    else{
-        std::cout<<"pack format err"<<std::endl;
-    }
-}
-```
-
-### 3.主线程接收键盘指令，发送串口命令控制baton_mini算法
-
-```c++
-int v;
-ros::Rate r(10);
-while(ros::ok()){
-    ROS_INFO("please input command:");
-    std::cin >> v;
-    if(v == 1){
-        ROS_INFO("algo_enable");
-        send_command(algo_enable);
-    }
-    else if(v == 2){
-        ROS_INFO("algo_disable");
-        send_command(algo_disable);
-    }
-    else if(v == 3){
-        ROS_INFO("algo_reset");
-        send_command(algo_restart);
-    }
-    else if(v == 4){
-        ROS_INFO("exit");
-        break;
-    }
-    r.sleep();
-    ros::spinOnce(); 
-}
-```
-
-### 4.子线程接收串口数据，解析并发布新的odometry话题
-
-```c++
-//串口接收线程
-void serial_receive_thread(){
-    odom_t mini_odom;
-    int frame_id = 0,last_frame_id = 0;
-    while(1){
-        serial_port.read(&receive_buffer[0],1);
-        if(receive_buffer[0] == RHEAD_1){
-            serial_port.read(receive_buffer + 1,LREV_LEN - 1);
-            unpack_uart(mini_odom,frame_id);
-            //拿到了里程计后的操作
-            if(frame_id > last_frame_id){
-                publish_odom(mini_odom);
-                last_frame_id = frame_id; //用于判断里程计是否持续更新，可不要  
-            }
-        }
-    }
-}
-```
-

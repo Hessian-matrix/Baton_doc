@@ -28,7 +28,7 @@ ifconfig
 
 ![](image/94d9bd1b3c7b0a7df93ef9e18de4103_7bgOycvXrB.png)
 
-# 3.Linux上固定网卡名称
+#### 3.Linux上固定网卡名称
 
 mini的usb虚拟网卡在有些设备上ifconfig查看到每次开机启动的网卡名称都不一样，可以通过绑定供应商id和设备id来解决：
 
