@@ -13,7 +13,7 @@ project = 'Viobot2用户手册'
 # project = 'baton_doc'
 copyright = '2024, hessian'
 author = 'HessianMatrix'
-release = '1.21'
+release = '1.26'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -27,7 +27,7 @@ extensions = [
 templates_path = ['_templates']
 exclude_patterns = []
 
-language = "ch"
+language = "zh_CN"
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

@@ -13,6 +13,7 @@ VIOBOT2开发者文档
    Viobot2简介
    开机指南
    
+   Lite使用教程/index
    基本功能介绍及使用/index
    硬件接口使用/index
    ROS_Master/index    
