@@ -44,7 +44,7 @@ trigger
 ```
 
 填入以下内容配置viobot2_usb0网卡的固定ip：
-
+> 注意这里的ip请根据真实的ros版本对应的ip进行设置!
 ```
 network: 
 version: 2 
