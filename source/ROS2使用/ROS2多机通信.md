@@ -101,7 +101,7 @@ ros2 doctor --report | grep -i "middleware"
 
 # 之后应该即可输出话题数据
 ros2 topic echo /baton_mini/imu
-# 如果mini新版本的话题列表中有压缩图像话题而无法通过rqt预览图像的话需要安装以下的插件
+# 如果mini的话题列表中有压缩图像话题而无法通过rqt预览图像的话需要安装以下的插件
 apt install ros-${ROS_DISTRO}-compressed-image-transport
 ```
 
