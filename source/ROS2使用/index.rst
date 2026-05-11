@@ -17,10 +17,3 @@ ROS2使用
    多设备同时接入使用
    
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-

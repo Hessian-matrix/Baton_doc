@@ -10,7 +10,6 @@ SDK_Demo
    :maxdepth: 2
    :caption: Contents:
 
-   SDK通信协议
    Uart_Demo
    USB_Demo
 
