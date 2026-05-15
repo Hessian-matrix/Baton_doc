@@ -10,7 +10,15 @@
 ## 在Viobot2上使用双目深度
 使用这项功能前先将Viobot2更新到我们官网的最新版本固件和Viobot-UI上位机，以防Viobot还没有收到更新的功能，具体的更新步骤查看[版本更新](https://baton-doc.readthedocs.io/en/viobot2/%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BD%BF%E7%94%A8/%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0.html)章节。
 
-更新了Viobot-UI以及Viobot2最新固件之后，用Viobot-UI连接Viobot2，点击设置，在baton一栏勾选深度图功能，然后点击确定，会提示重启生效，但是此功能是实时生效的，可以在进程发现一个“stereo_depth”的进程。
+更新了Viobot-UI以及Viobot2最新固件之后，用Viobot-UI连接Viobot2，点击设置，在baton一栏勾选深度图功能，然后点击确定，会提示重启生效，但是此功能是实时生效的，可以在进程发现一个“stereo_depth”的进程。此外还可以通过ros的方式启动双目深度：
+
+```
+#ros1
+rosrun depth stereo_depth
+
+#ros2
+ros2 run depth stereo_depth
+```
 
 ![](image/image_open_depth.png)
 
