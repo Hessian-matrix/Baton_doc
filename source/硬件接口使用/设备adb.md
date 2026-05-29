@@ -2,7 +2,7 @@
 
 adb软件下载[https://wwbnp.lanzoum.com/ie6QE3e7fv8j](https://wwbnp.lanzoum.com/ie6QE3e7fv8j)
 
-先通过USB-type-c接口连接Viobot2设备，此接口仅为abd，不能使用otg.
+先通过USB-type-c接口连接Viobot2设备，此接口仅为adb，不能使用otg.
 
 打开cmd命令行
 

@@ -7,7 +7,7 @@
 
 路径规划部分我们选用轮式机器人比较常用的move\_base。
 
-整个架构就是Viobot使用stereo2算法提供机器人的当前位姿，输入到move\_base作为规划起点，再给定目标终点，move\_base会输出一个/cmd\_vel的话题使机器人运动起来。至于/cmd\_vel到控制机器人底盘运动（也就是base controller这部分）的实现就要用户自己去实现了，我们先默认都已经可以实现base controller了。
+整个架构就是Viobot2使用stereo3算法提供机器人的当前位姿，输入到move\_base作为规划起点，再给定目标终点，move\_base会输出一个/cmd\_vel的话题使机器人运动起来。至于/cmd\_vel到控制机器人底盘运动（也就是base controller这部分）的实现就要用户自己去实现了，我们先默认都已经可以实现base controller了。
 
 ![](image/image_YS4imUf4SN.png)
 
@@ -50,7 +50,7 @@ void VioOdomNodelet::loop_pose_callback(const nav_msgs::OdometryPtr &msg){
     
     tf::Quaternion original_quat(msg->pose.pose.orientation.x, msg->pose.pose.orientation.y, msg->pose.pose.orientation.z, msg->pose.pose.orientation.w);
     
-    //选转到跟base_link方向一致
+    //旋转到跟base_link方向一致
     tf::Quaternion quat_rotate;
     quat_rotate.setRPY(0, -M_PI/2, M_PI/2);
     // quat_rotate.setRPY(0,M_PI/2, -M_PI/2);
@@ -91,7 +91,7 @@ void VioOdomNodelet::loop_pose_callback(const nav_msgs::OdometryPtr &msg){
     odom.pose.pose.position.x = msg->pose.pose.position.x;
     odom.pose.pose.position.y = msg->pose.pose.position.y;
 
-    //这里odom的速度可选stereo2输出的速度，也可以选择底盘论速计的速度
+    //这里odom的速度可选stereo2输出的速度，也可以选择底盘轮速计的速度
     // odom.twist.twist.linear.x = msg->twist.twist.linear.x;
     // odom.twist.twist.linear.y = msg->twist.twist.linear.y;
     odom.twist.twist.linear.x = linear_vx;
@@ -208,7 +208,7 @@ void VioOdomNodelet::loop_pointclound_callback(const sensor_msgs::PointCloud2Con
 
 ### 2）地图文件
 
-这个需要用户把自己的场景先建里一个地图先验，可以是使用雷达等设备，也可以使用viobot（这个建图要单独开一篇来讲）。
+这个需要用户把自己的场景先建立一个地图先验，可以是使用雷达等设备，也可以使用viobot（这个建图要单独开一篇来讲）。
 
 ### 3）move\_base配置文件
 

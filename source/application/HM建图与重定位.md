@@ -6,7 +6,7 @@
 > - HM Localization + 组合导航，结合HM Perception实现中低速自由探索；
 
 **注意：**
-> - <font color='#FF0000'>目前viobot2系统版本为202511xx及之后的版本建图需要最新版本的上位机UI配合使用，如发现上位机机的页面不一致需要更新到官网的最新版本之后再配合本节使用</font>
+> - <font color='#FF0000'>目前viobot2系统版本为202511xx及之后的版本建图需要最新版本的上位机UI配合使用，如发现上位机的页面不一致需要更新到官网的最新版本之后再配合本节使用</font>
 > - <font color='#FF0000'>不支持：如雪原、隧道等视觉特征/光照太差的场景、精度要求极高的严肃工业场景海拔30米向上飞行场景。</font>
 > - <font color='#FF0000'>目前SFM重建在无纹理区域、走廊白墙场景容易失败。</font>
 > - <font color='#FF0000'>目前重定位在平坦、开阔、近处特征少的场景重定位精度会降低，系统仍然可以依靠GNSS、RTK以及视觉定位正常工作。</font>
@@ -81,8 +81,7 @@ zupt_average_parallax: 0
 
 ## 离线建图
 
-前面已经完成了建图的数据采集、基础配置项，建图前建议按照上一节检查一下基础配置项，之后点击“开始建图”之后出现建图的进度条，整个建图的用时视建图的环境大小而增大，进图条结束之后可以在输出路径下的HM_SFM目录下找到重建的结果了：
-前面已经完成了建图的数据采集、基础配置项，建图前建议按照上一节检查一下基础配置项，之后点击“开始建图”之后出现建图的进度条，整个建图的用时视建图的环境大小而增大，进图条结束之后可以在输出路径下的HM_SFM目录下、或者上位机-查看地图即可看到重建的结果了：
+前面已经完成了建图的数据采集、基础配置项，建图前建议按照上一节检查一下基础配置项，之后点击“开始建图”之后出现建图的进度条，整个建图的用时视建图的环境大小而增大，进度条结束之后可以在输出路径下的HM_SFM目录下找到重建的结果了：
 
 > Tips:此处运行建图也可不通过UI进行建图，ssh登录viobot2通过运行mapping节点进行建图，注意之前配置的路径以及保存的bow文件夹是否存在内容：
 ~~~ shell
@@ -102,8 +101,8 @@ ros2 run baton mapping -->
 下图是用tree来查看建图完成的目录结构
 
 ```shell
-root@PR-VIO: cd /home/my_relocation
-root@PR-VIO:/home/my_relocation# tree
+PRR@PR-VIO: cd /home/my_relocation
+PRR@PR-VIO:/home/my_relocation# tree
 |-- xxx.jpg
 |-- ...
 `-- images  # 文件夹
@@ -177,7 +176,7 @@ position_covariance_type: 48
 
 ### 判断重定位是否触发
 
-触发重定位之后会发布一个`geometry_msgs/PoseStamped`类型的`/baton/stereo3/odom_relo`话题,需要根据是否接接收到此话题判断重定位是否成功，此话题发布的是建图坐标系下的重定位位姿。
+触发重定位之后会发布一个`geometry_msgs/PoseStamped`类型的`/baton/stereo3/odom_relo`话题,需要根据是否接收到此话题判断重定位是否成功，此话题发布的是建图坐标系下的重定位位姿。
 
 
 > 注意：融合后的轨迹是发布到`/baton/stereo3/fusion_odom`里面的，此话题是融合了GNSS\RTK\relocalization的位姿作为输出，有哪些数据源输入就融合什么数据源，全都有就全都融合。

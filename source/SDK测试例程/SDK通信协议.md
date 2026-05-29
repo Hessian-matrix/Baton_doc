@@ -44,7 +44,7 @@ Response Body参数定义：（float）
 
 
  
-
+<!-- 
 ### （3）smart参数
 
 | URL    | http://< ip >:< port >/Config/smart                          |
@@ -71,7 +71,7 @@ Response BODY参数定义：
 
 ​	2：启用流获取右目灰度图
 
-​	3：启用流获取双目灰度图
+​	3：启用流获取双目灰度图 -->
 
 
 
@@ -88,7 +88,7 @@ BODY参数定义：一个3行4列的位姿变换矩阵，由12个浮点数组成
 
 #### 1）Vio算法启用
 
-| URL    | http://< ip >:< port >/Algorithm/enable/"algo_tyep_num"    |
+| URL    | http://< ip >:< port >/Algorithm/enable/"algo_type_num"    |
 | ---------------- | ---------------------------------------------------------- |
 | METHOD | PUT                                                        |
 | BODY   | 无                                                         |

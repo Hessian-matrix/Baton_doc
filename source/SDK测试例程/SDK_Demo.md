@@ -4,7 +4,7 @@
 
 地址：[Hessian-matrix/SDK\_Demo (github.com)](https://github.com/Hessian-matrix/SDK_Demo "Hessian-matrix/SDK_Demo: http demo (github.com)")或[SDK\_Demo(gitee.com)](https://gitee.com/hessian_matrix/SDK_Demo "SDK_Demo: http demo (gitee.com)")
 
-## 1.wimdows下使用
+## 1.windows下使用
 
 直接使用vs2019打开，直接本地调试器启动就行。
 
@@ -20,13 +20,13 @@
 
 ### （2）输入1按回车，开启流通道1的接收。
 
-通道1的数据就能就收到了，默认会接收到类型8的数据，也就是当前的系统状态，该消息是1秒上传1次。
+通道1的数据就能就接收到了，默认会接收到类型8的数据，也就是当前的系统状态，该消息是1秒上传1次。
 
 ![](image/image_TMKotXBNkt.png)
 
-### （3）输入2按回车，启动/停止stereo2算法
+### （3）输入2按回车，启动/停止stereo3算法
 
-当系统状态是ready时，启动算法，终端会持续打印通道1的pose和twist数据；当系统状态是stereo2\_running时，停止算法，不会再接收到pose和twist数据，也就没有了打印这两个数据。
+当系统状态是ready时，启动算法，终端会持续打印通道1的pose和twist数据；当系统状态是stereo3\_running时，停止算法，不会再接收到pose和twist数据，也就没有了打印这两个数据。
 
 ![](image/image_dAO_56P6Cl.png)
 
@@ -70,9 +70,9 @@ make
 
 ![](image/image_TMKotXBNkt.png)
 
-#### 3.输入2按回车，启动/停止stereo2算法
+#### 3.输入2按回车，启动/停止stereo3算法
 
-当系统状态是ready时，启动算法，终端会持续打印通道1的pose和twist数据；当系统状态是stereo2\_running时，停止算法，不会再接收到pose和twist数据，也就没有了打印这两个数据。
+当系统状态是ready时，启动算法，终端会持续打印通道1的pose和twist数据；当系统状态是stereo3_running时，停止算法，不会再接收到pose和twist数据，也就没有了打印这两个数据。
 
 ![](image/image_dAO_56P6Cl.png)
 

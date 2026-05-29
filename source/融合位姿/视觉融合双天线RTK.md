@@ -150,10 +150,10 @@ roslaunch hm_rtk calib_rtk_slam.launch
 
 现在RTK/GNSS PPS时间同步方式：
 一是前面说到的在接入GNSS天线再使用RTK算法时设备已经通过设备板载的GNSS模块接入了PPS时间同步；
-二是改造Viobot，需要重新焊出pps和GND线
+二是改造Viobot2，需要重新焊出pps和GND线
 
 这两种时间同步方式都是同步的系统的时间，各个话题的时间都是基于同步后的时间作为时间戳。
-
+![alt text](image/image_pps.png)
 ## 五、精度测试报告
 
 | 路径长度 | 绝对轨迹误差RMSE|
