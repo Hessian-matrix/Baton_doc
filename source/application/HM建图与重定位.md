@@ -89,11 +89,9 @@ zupt_average_parallax: 0
 rostopic pub -1 /baton/build_map std_msgs/Bool "data: true"
 
 # ros2:
-ros2 topic pub --once /baton_mini/build_map std_msgs/msg/Bool "{data: true}"
+ros2 topic pub --once /baton/build_map std_msgs/msg/Bool "{data: true}"
 ~~~
-ros2的指令目前还没有
-<!-- #ros2的指令目前还没有 ros2:
-ros2 run baton mapping -->
+
 
 ![](image/image_mapping.png)
 
