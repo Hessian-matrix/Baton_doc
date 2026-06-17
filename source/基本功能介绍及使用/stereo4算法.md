@@ -3,6 +3,7 @@
 ## 功能特点
 
 stereo4算法是黑森矩阵最新开发的一套更轻量双目鱼眼视觉slam算法，其特点是开销更低，精度和steroe3的大致相当，在25hz图像输入时stereo4的算法平均开销相比stereo3的降低了约30%~50%，对于算力受限时可以使用。stereo4同样支持重定位+rtk的耦合，但是stereo4暂时没有在线回环的功能。
+![alt text](image/stereo4_image.png)
 
 ## VIO
 使用的25hz双目图像+200hz imu输出，输出的odometry为25hz。
@@ -64,6 +65,9 @@ ros2 topic pub --once /baton/stereo4_ctrl system_ctrl/msg/AlgoCtrl "{
 
 调用方式直接是 HTTP PUT，不需要 body，把127.0.0.1换成自己设备的ip即可。
 启动算法：`PUT http://127.0.0.1:8000/Algorithm/enable/5`
+
 停止算法：`PUT http://127.0.0.1:8000/Algorithm/disable/5`
+
 重启算法：`PUT http://127.0.0.1:8000/Algorithm/reboot/5`
+
 重置算法：`PUT http://127.0.0.1:8000/Algorithm/reset/5`
