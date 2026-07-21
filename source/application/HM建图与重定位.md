@@ -84,6 +84,10 @@ zupt_average_parallax: 0
 前面已经完成了建图的数据采集、基础配置项，建图前建议按照上一节检查一下基础配置项，之后点击“开始建图”之后出现建图的进度条，整个建图的用时视建图的环境大小而增大，进度条结束之后可以在输出路径下的HM_SFM目录下找到重建的结果了：
 
 > Tips:此处运行建图也可不通过UI进行建图，ssh登录viobot2通过运行mapping节点进行建图，注意之前配置的路径以及保存的bow文件夹是否存在内容：
+无上位机采集数据的方式首先也是配置`/root/Baton/install/share/baton/config/sys.yaml`,修改`pose_graph_save_path`的路径，或者保保持默认也可，需要建多份地图时就需要修改建图文件的存放路径
+
+
+采集数据完成之后使用ros topic启动建图：
 ~~~ shell
 # ros1:
 rostopic pub -1 /baton/build_map std_msgs/Bool "data: true"
