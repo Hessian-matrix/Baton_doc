@@ -2,7 +2,7 @@
 
 下面我们来介绍Viobot2的I2C接口的使用
 
-![](image/image_3vsyHcBUGB.png)
+![alt text](image/image_hardware_interface.png)
 
 ### 1.接口定义
 

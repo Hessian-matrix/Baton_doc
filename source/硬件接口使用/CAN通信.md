@@ -1,8 +1,8 @@
 # CAN通信
 
-下面我们来介绍Viobot2的CAN口使用
+下面我们来介绍Viobot2的CAN口使用，这里以带扩展版的viobot2为示例。
 
-![](image/image_-2f23VsaRD.png)
+![alt text](image/image_hardware_interface.png)
 
 ### 1.接口定义
 
@@ -20,7 +20,7 @@ Viobot2面有一个2\*4pin的接口母座，接头我们发货的时候会放在
 
 我们可以先去某宝上买一个带上位机的CAN转USB模块，将Viobot2的CANL和CANH接到模块的CANL和CANH上面，然后将模块插到电脑。
 
-![](image/image_Ma6ycB9AMp.png)
+![alt text](image/image_hardware_interface.png)
 
 ### 3.命令行测试
 
