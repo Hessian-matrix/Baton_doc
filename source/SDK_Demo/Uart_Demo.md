@@ -1,6 +1,6 @@
 # Uart_Demo
 
-UART的接口为GH1.0的5pin，从螺丝孔那里开始从左到右分别是GND、TRIG、TX、RX、5V。
+UART的接口为GH1.25的5pin，从螺丝孔那里开始从左到右分别是GND、TRIG、TX、RX、5V。
 
 ![](image/image_YcAJ7_52sA.png)
 
