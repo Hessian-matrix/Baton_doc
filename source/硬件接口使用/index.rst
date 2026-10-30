@@ -1,20 +1,34 @@
-.. viobot_doc documentation master file, created by
-   sphinx-quickstart on Thu Jan 18 15:31:43 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 硬件接口使用
 ======================================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+本栏目说明 VIObot2 的外部接口、存储和网络连接方法。接线前请先核对接口电平、供电要求与线序，避免损坏设备或外设。
 
-   网卡挂载与WiFi连接  
+接口能力
+----------------
+
+- UART、I2C 和 CAN 外设通信。
+- TF 卡挂载与数据存储。
+- 有线网卡、Wi-Fi 和 ADB 调试连接。
+
+推荐入口
+----------------
+
+- :doc:`查看设备接口总览 <设备接口总览>`
+- :doc:`配置串口通信 <串口通信>`
+- :doc:`配置网络连接 <网卡挂载与WiFi连接>`
+
+.. warning::
+
+   格式化 TF 卡会清除卡内数据，请在操作前完成备份。
+
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+
    设备接口总览
+   网卡挂载与WiFi连接
    TF卡挂载
    串口通信
    I2C通信
    CAN通信
-   
-
+   设备adb

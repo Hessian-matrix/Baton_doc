@@ -1,13 +1,22 @@
-.. viobot_doc documentation master file, created by
-   sphinx-quickstart on Thu Jan 18 15:31:43 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 资料下载
 ======================================
 
+本栏目集中提供 VIObot2 开发与部署所需的代码仓库、驱动、接口包、示例程序和固件入口。
+
+可获取资料
+----------------
+
+- RTK 驱动、ROS1 / ROS2 接口和通用导航示例。
+- Windows / Linux SDK Demo 与 RoboBaton 客户端。
+- 产品固件及相关开发资料。
+
+推荐入口
+----------------
+
+- :doc:`查看代码仓库和下载链接 <代码仓库和链接汇总>`
+
 .. toctree::
+   :hidden:
    :maxdepth: 2
-   :caption: Contents:
 
    代码仓库和链接汇总

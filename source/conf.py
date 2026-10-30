@@ -5,8 +5,6 @@
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-import sphinx_rtd_theme
-html_theme = 'sphinx_rtd_theme'
 html_show_sourcelink = False
 
 project = 'Viobot2用户手册'
@@ -21,7 +19,6 @@ release = '1.26'
 extensions = [
     'recommonmark',
     'sphinx_markdown_tables',
-    'sphinx_rtd_theme'
 ]
 
 templates_path = ['_templates']
@@ -32,8 +29,21 @@ language = "zh_CN"
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'sphinx_book_theme'
+html_title = 'Hessian Matrix 产品文档'
 html_static_path = ['_static']
+html_css_files = ['custom.css', 'product-portal.css']
+html_theme_options = {
+    'repository_url': '',
+    'use_repository_button': False,
+    'use_issues_button': False,
+    'use_edit_page_button': False,
+    'use_download_button': False,
+    'home_page_in_toc': True,
+    'show_navbar_depth': 1,
+    'navbar_center': ['product-links.html'],
+    'navbar_persistent': ['search-button-field'],
+}
 
 latex_engine = 'xelatex'
 

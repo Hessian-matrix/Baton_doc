@@ -1,15 +1,24 @@
-.. viobot_doc documentation master file, created by
-   sphinx-quickstart on Thu Jan 18 15:31:43 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-SDK使用教程
+SDK 使用教程
 ======================================
 
+本栏目面向不依赖 ROS 的应用开发，说明如何通过 VIObot2 SDK 读取状态与流数据、管理参数并控制设备功能。
+
+开发要点
+----------------
+
+- HTTP 服务默认使用 ``8000`` 端口。
+- 支持状态查询、参数读写和算法数据获取。
+- 提供 Windows 与 Linux 环境下的示例程序。
+
+推荐入口
+----------------
+
+- :doc:`了解 SDK 通信协议 <SDK通信协议>`
+- :doc:`运行 SDK Demo <SDK_Demo>`
+
 .. toctree::
+   :hidden:
    :maxdepth: 2
-   :caption: Contents:
 
    SDK通信协议
    SDK_Demo
-

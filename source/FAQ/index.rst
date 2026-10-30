@@ -1,16 +1,22 @@
-.. viobot_doc documentation master file, created by
-   sphinx-quickstart on Thu Jan 18 15:31:43 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 问题解答
 ======================================
 
+本栏目汇总 VIObot2 使用中的高频问题，帮助用户快速定位网络、时间同步、定位数据和算法运行异常。
+
+重点问题
+----------------
+
+- 设备无法联网、DHCP 地址异常或多设备通信失败。
+- RTK、外部 NMEA 与系统时间不同步。
+- 建图、重定位和 Web 界面使用中的常见异常。
+
+推荐入口
+----------------
+
+- :doc:`查看常见问题与处理方法 <常见问题>`
+
 .. toctree::
+   :hidden:
    :maxdepth: 2
-   :caption: Contents:
 
    常见问题
-   
-
-

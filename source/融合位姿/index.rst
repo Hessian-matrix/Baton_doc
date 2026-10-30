@@ -1,17 +1,24 @@
-.. viobot_doc documentation master file, created by
-   sphinx-quickstart on Thu Jan 18 15:31:43 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 融合位姿
 ======================================
 
+本栏目说明如何融合视觉里程计与 RTK / GNSS，在获得全局位置的同时保持局部运动轨迹连续，并增强弱卫星环境下的定位可用性。
+
+方案特点
+----------------
+
+- 单天线 RTK 提供全局位置，视觉里程计补充连续、高频的局部运动信息。
+- 双天线 RTK 在全局位置之外提供航向观测，改善系统朝向约束。
+- 配置过程覆盖 NMEA / RTK 数据接入、坐标外参和融合参数。
+
+推荐入口
+----------------
+
+- :doc:`视觉融合单天线 RTK <视觉融合单天线RTK>`
+- :doc:`视觉融合双天线 RTK <视觉融合双天线RTK>`
+
 .. toctree::
+   :hidden:
    :maxdepth: 2
-   :caption: Contents:
 
    视觉融合单天线RTK
    视觉融合双天线RTK
-   
-
-

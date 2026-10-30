@@ -1,16 +1,29 @@
-.. viobot_doc documentation master file, created by
-   sphinx-quickstart on Thu Jan 18 15:31:43 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 基本功能介绍及使用
 ======================================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+本栏目集中说明 VIObot2 的算法、数据、系统配置和日常维护，是完成设备接入后进一步开发的主要参考。
 
-   基本功能  
+内容概览
+----------------
+
+- **算法能力：** Stereo3 / Stereo4、回环检测、重定位和双目深度。
+- **数据接口：** 图像、IMU、视觉里程计、点云、GNSS 与融合位姿。
+- **工程配置：** 算法控制、NTP 时间同步和面向实际项目的参数配置。
+- **运行维护：** 数据包录制、版本查看与系统更新。
+
+推荐入口
+----------------
+
+- :doc:`认识核心功能 <基本功能>`
+- :doc:`了解输出数据 <数据说明>`
+- :doc:`控制视觉算法 <算法控制>`
+- :doc:`工程应用配置 <工程应用上的相关配置>`
+
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+
+   基本功能
    数据说明
    算法控制
    stereo4算法
@@ -22,4 +35,3 @@
    NTP时间同步
    工程应用上的相关配置
    版本更新
-  

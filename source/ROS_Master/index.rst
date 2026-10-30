@@ -1,18 +1,25 @@
-.. viobot_doc documentation master file, created by
-   sphinx-quickstart on Thu Jan 18 15:31:43 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-ROS多机通讯(ROS1 ROS2)
+ROS 多机通信
 ======================================
 
+本栏目说明 VIObot2 与开发主机、机器人主控之间的 ROS1 和 ROS2 多机通信配置。配置前应确保设备处于同一网络且能够互相 ``ping`` 通。
+
+核心内容
+----------------
+
+- ROS1 主从机：统一 ``ROS_MASTER_URI`` 并正确设置各主机地址。
+- ROS1 多 Master：在多个 ROS Master 之间同步所需话题。
+- ROS2 多机通信：通过相同的 Domain ID 和网络配置发现节点。
+
+推荐入口
+----------------
+
+- :doc:`配置 ROS1 主从机 <ROS主从机配置>`
+- :doc:`配置 ROS2 多机通信 <ROS2多机通讯>`
+
 .. toctree::
+   :hidden:
    :maxdepth: 2
-   :caption: Contents:
 
    ROS主从机配置
    ROS多主机配置
    ROS2多机通讯
-   
-
-
