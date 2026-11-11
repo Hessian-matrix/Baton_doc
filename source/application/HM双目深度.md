@@ -14,10 +14,10 @@
 
 ```
 #ros1
-rosrun depth stereo_depth
+roslaunch depth baton_depth.launch
 
 #ros2
-ros2 run depth stereo_depth
+ros2 launch depth baton_depth.launch.py
 ```
 
 ![](image/image_open_depth.png)

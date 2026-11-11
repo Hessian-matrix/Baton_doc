@@ -26,8 +26,8 @@ VIObot2 Lite + RTK D20 飞控接入
    :hidden:
    :maxdepth: 2
 
-   快速开始
    产品特性介绍
+   快速开始
    产品组成与数据链路
    安装与接线
    飞控配置
