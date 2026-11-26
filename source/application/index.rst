@@ -14,9 +14,9 @@ HM Inside 应用
 ----------------
 
 - :doc:`了解 HM Inside <HM Inside>`
-- :doc:`建图与重定位 <HM建图与重定位>`
+- :doc:`建图与重定位 <hm-mapping-relocalization>`
 - :doc:`规划应用 <HM Planner>`
-- :doc:`双目深度 <HM双目深度>`
+- :doc:`双目深度 <hm-stereo-depth>`
 
 .. toctree::
    :hidden:
@@ -24,6 +24,6 @@ HM Inside 应用
 
    HM Inside
    HM Planner
-   HM建图与重定位
-   HM双目深度
-   HM图像分割
+   hm-mapping-relocalization
+   hm-stereo-depth
+   hm-segmentation

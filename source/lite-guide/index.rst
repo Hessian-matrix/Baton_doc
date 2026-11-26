@@ -13,12 +13,12 @@ VIObot2 Lite 使用教程
 推荐入口
 ----------------
 
-- :doc:`快速配置与使用 <lite快速配置使用教程>`
-- :doc:`固定 USB 虚拟网卡 <Lite_固定usb网卡>`
+- :doc:`快速配置与使用 <lite-quickstart>`
+- :doc:`固定 USB 虚拟网卡 <usb-network>`
 
 .. toctree::
    :hidden:
    :maxdepth: 2
 
-   lite快速配置使用教程
-   Lite_固定usb网卡
+   lite-quickstart
+   usb-network

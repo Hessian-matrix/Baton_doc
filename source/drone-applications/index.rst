@@ -1,4 +1,4 @@
-VIObot2 Lite + RTK D20 飞控接入
+Viobot2 Lite多融无人机应用
 ======================================
 
 本章面向使用 **VIObot2 Lite、RTK D20 与 ArduPilot 或 PX4 飞控** 的用户，说明如何完成设备安装、Web 配置、飞控设置和飞行前验收。
@@ -18,19 +18,19 @@ VIObot2 Lite + RTK D20 飞控接入
 推荐入口
 ----------------
 
-- :doc:`快速开始 <快速开始>`：完成基础接线、Web 配置和首次飞控接入。
-- :doc:`飞控配置 <飞控配置>`：配置 MAVLink 串口、GPS 和定位来源。
-- :doc:`联调与飞行前验收 <联调与飞行前验收>`：逐项确认定位状态和飞行安全条件。
+- :doc:`快速开始 <quickstart>`：完成基础接线、Web 配置和首次飞控接入。
+- :doc:`飞控配置 <flight-controller-setup>`：配置 MAVLink 串口、GPS 和定位来源。
+- :doc:`联调与飞行前验收 <preflight-checks>`：逐项确认定位状态和飞行安全条件。
 
 .. toctree::
    :hidden:
    :maxdepth: 2
 
-   产品特性介绍
-   快速开始
-   产品组成与数据链路
-   安装与接线
-   飞控配置
-   Lite与Web配置
-   联调与飞行前验收
-   分析与诊断
+   features
+   quickstart
+   components-data-flow
+   installation-wiring
+   flight-controller-setup
+   lite-web-setup
+   preflight-checks
+   diagnostics

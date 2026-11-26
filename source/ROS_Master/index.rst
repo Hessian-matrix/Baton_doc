@@ -13,13 +13,13 @@ ROS 多机通信
 推荐入口
 ----------------
 
-- :doc:`配置 ROS1 主从机 <ROS主从机配置>`
-- :doc:`配置 ROS2 多机通信 <ROS2多机通讯>`
+- :doc:`配置 ROS1 主从机 <ros1-master-client>`
+- :doc:`配置 ROS2 多机通信 <ros2-multi-host>`
 
 .. toctree::
    :hidden:
    :maxdepth: 2
 
-   ROS主从机配置
-   ROS多主机配置
-   ROS2多机通讯
+   ros1-master-client
+   ros1-multi-master
+   ros2-multi-host

@@ -13,12 +13,12 @@ SDK 使用教程
 推荐入口
 ----------------
 
-- :doc:`了解 SDK 通信协议 <SDK通信协议>`
+- :doc:`了解 SDK 通信协议 <sdk-protocol>`
 - :doc:`运行 SDK Demo <SDK_Demo>`
 
 .. toctree::
    :hidden:
    :maxdepth: 2
 
-   SDK通信协议
+   sdk-protocol
    SDK_Demo

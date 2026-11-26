@@ -14,24 +14,24 @@
 推荐入口
 ----------------
 
-- :doc:`认识核心功能 <基本功能>`
-- :doc:`了解输出数据 <数据说明>`
-- :doc:`控制视觉算法 <算法控制>`
-- :doc:`工程应用配置 <工程应用上的相关配置>`
+- :doc:`认识核心功能 <core-features>`
+- :doc:`了解输出数据 <data-reference>`
+- :doc:`控制视觉算法 <algorithm-control>`
+- :doc:`工程应用配置 <deployment-settings>`
 
 .. toctree::
    :hidden:
    :maxdepth: 2
 
-   基本功能
-   数据说明
-   算法控制
-   stereo4算法
-   回环使用
-   重定位使用
-   双目深度
-   GNSS模块使用
-   数据包录制
-   NTP时间同步
-   工程应用上的相关配置
-   版本更新
+   core-features
+   data-reference
+   algorithm-control
+   stereo4
+   loop-closure
+   relocalization
+   stereo-depth
+   gnss
+   data-recording
+   ntp
+   deployment-settings
+   updates

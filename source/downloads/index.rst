@@ -13,10 +13,10 @@
 推荐入口
 ----------------
 
-- :doc:`查看代码仓库和下载链接 <代码仓库和链接汇总>`
+- :doc:`查看代码仓库和下载链接 <repositories-and-links>`
 
 .. toctree::
    :hidden:
    :maxdepth: 2
 
-   代码仓库和链接汇总
+   repositories-and-links

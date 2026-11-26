@@ -13,10 +13,10 @@
 推荐入口
 ----------------
 
-- :doc:`查看常见问题与处理方法 <常见问题>`
+- :doc:`查看常见问题与处理方法 <troubleshooting>`
 
 .. toctree::
    :hidden:
    :maxdepth: 2
 
-   常见问题
+   troubleshooting

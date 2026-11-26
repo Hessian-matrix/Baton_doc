@@ -13,12 +13,12 @@
 推荐入口
 ----------------
 
-- :doc:`视觉融合单天线 RTK <视觉融合单天线RTK>`
-- :doc:`视觉融合双天线 RTK <视觉融合双天线RTK>`
+- :doc:`视觉融合单天线 RTK <single-antenna-rtk>`
+- :doc:`视觉融合双天线 RTK <dual-antenna-rtk>`
 
 .. toctree::
    :hidden:
    :maxdepth: 2
 
-   视觉融合单天线RTK
-   视觉融合双天线RTK
+   single-antenna-rtk
+   dual-antenna-rtk

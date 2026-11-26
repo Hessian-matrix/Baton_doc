@@ -6,7 +6,7 @@ Hessian Matrix 产品文档
 .. raw:: html
 
    <div class="product-portal" aria-label="产品文档入口">
-     <a class="product-card product-card--viobot" href="Viobot2简介.html" target="_blank" rel="noopener noreferrer">
+     <a class="product-card product-card--viobot" href="viobot2-overview.html" target="_blank" rel="noopener noreferrer">
        <span class="product-card__media">
          <img src="_images/viobot2-main.png" alt="VIObot2 双目视觉计算平台" loading="lazy">
        </span>
@@ -80,7 +80,7 @@ Hessian Matrix 产品文档
            <td>双目视觉计算平台</td>
            <td>机器人、无人机、建图与导航</td>
            <td>VIO、深度感知、视觉与 RTK 融合、ROS 开发</td>
-           <td><a href="Viobot2简介.html" target="_blank" rel="noopener noreferrer">查看文档</a></td>
+           <td><a href="viobot2-overview.html" target="_blank" rel="noopener noreferrer">查看文档</a></td>
          </tr>
          <tr>
            <td><strong>Baton Mini</strong></td>
@@ -111,16 +111,16 @@ Hessian Matrix 产品文档
    :hidden:
    :maxdepth: 2
 
-   Viobot2简介
-   开机指南
-   Lite使用教程/index
-   VIObot2_Lite_D20飞控桥接/index
-   基本功能介绍及使用/index
-   硬件接口使用/index
+   viobot2-overview
+   getting-started
+   lite-guide/index
+   drone-applications/index
+   basics/index
+   hardware/index
    ROS_Master/index
-   SDK测试例程/index
+   sdk-examples/index
    application/index
-   通用导航例程/index
-   融合位姿/index
-   相关资料下载/index
+   navigation-examples/index
+   pose-fusion/index
+   downloads/index
    FAQ/index

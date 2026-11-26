@@ -13,9 +13,9 @@
 推荐入口
 ----------------
 
-- :doc:`查看设备接口总览 <设备接口总览>`
-- :doc:`配置串口通信 <串口通信>`
-- :doc:`配置网络连接 <网卡挂载与WiFi连接>`
+- :doc:`查看设备接口总览 <interfaces>`
+- :doc:`配置串口通信 <serial>`
+- :doc:`配置网络连接 <network-wifi>`
 
 .. warning::
 
@@ -25,10 +25,10 @@
    :hidden:
    :maxdepth: 2
 
-   设备接口总览
-   网卡挂载与WiFi连接
-   TF卡挂载
-   串口通信
-   I2C通信
-   CAN通信
-   设备adb
+   interfaces
+   network-wifi
+   sd-card
+   serial
+   i2c
+   can
+   adb
